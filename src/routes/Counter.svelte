@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { Spring } from 'svelte/motion';
 
-	const count = new Spring(0);
+	const count = new Spring(1);
 	const offset = $derived(modulo(count.current, 1));
+	let increment = $state(count.current);
 
 	function modulo(n: number, m: number) {
 		// handle negative numbers
@@ -19,12 +20,15 @@
 
 	<div class="counter-viewport">
 		<div class="counter-digits" style="transform: translate(0, {100 * offset}%)">
-			<strong class="hidden" aria-hidden="true">{Math.floor(count.current + 1)}</strong>
-			<strong>{Math.floor(count.current)}</strong>
+			<strong class="hidden" aria-hidden="true">{Math.floor(count.current + increment + 1)}</strong>
+			<strong>{Math.floor(count.current + increment)}</strong>
 		</div>
 	</div>
 
-	<button onclick={() => (count.target += 1)} aria-label="Increase the counter by one">
+	<button onclick={() => {
+		count.target += increment;
+		increment = count.current;
+		}} aria-label="Increase the counter by one">
 		<svg aria-hidden="true" viewBox="0 0 1 1">
 			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
 		</svg>
