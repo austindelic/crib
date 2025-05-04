@@ -31,3 +31,5 @@ export const house_users = pgTable('house_users', {
 		.references(() => houses.id)
 		.notNull()
 });
+
+//Auth tables
