@@ -5,7 +5,7 @@ const baseFields = {
 	createdAt: timestamp('created_at').defaultNow()
 };
 
-export const users = pgTable('users', {
+export const userTable = pgTable('user', {
 	...baseFields,
 
 	username: text('username').notNull(),
@@ -15,21 +15,32 @@ export const users = pgTable('users', {
 	discordId: text('discord_id')
 });
 
-export const houses = pgTable('houses', {
+export const houseTable = pgTable('house', {
 	...baseFields,
 
 	name: text('name').notNull()
 });
 
-export const house_users = pgTable('house_users', {
+export const houseUsersTable = pgTable('house_users', {
 	...baseFields,
 
 	user_id: uuid('user_id')
-		.references(() => users.id)
+		.references(() => userTable.id)
 		.notNull(),
 	house_id: uuid('house_id')
-		.references(() => houses.id)
+		.references(() => houseTable.id)
 		.notNull()
 });
 
 //Auth tables
+
+export const sessionTable = pgTable('session', {
+	id: text('id').primaryKey(),
+	userId: uuid('user_id')
+		.notNull()
+		.references(() => userTable.id),
+	expiresAt: timestamp('expires_at', {
+		withTimezone: true,
+		mode: 'date'
+	}).notNull()
+});
