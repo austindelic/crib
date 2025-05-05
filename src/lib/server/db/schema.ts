@@ -9,10 +9,10 @@ export const userTable = pgTable('user', {
 	...baseFields,
 
 	username: text('username').notNull(),
-	email: text('email').notNull(),
-	age: integer('age'),
 	name: text('name'),
-	discordId: text('discord_id')
+	githubId: integer('github_id'),
+	email: text('email').notNull(),
+	age: integer('age')
 });
 
 export const houseTable = pgTable('house', {
