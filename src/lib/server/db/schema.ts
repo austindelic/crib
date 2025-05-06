@@ -11,7 +11,8 @@ export const userTable = pgTable('user', {
 	username: text('username').notNull(),
 	name: text('name'),
 	githubId: integer('github_id'),
-	email: text('email').notNull(),
+	googleId: text('google_id'),
+	email: text('email'),
 	age: integer('age')
 });
 

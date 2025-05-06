@@ -1,18 +1,19 @@
-// routes/login/github/callback/+server.ts
+// routes/login/google/callback/+server.ts
 import { generateSessionToken, createSession } from '$lib/server/auth/session';
 import { setSessionTokenCookie } from '$lib/server/auth/cookies';
-import { github } from '$lib/server/auth/oauth';
-import { getUserFromGitHubId, createUser } from '$lib/server/db/queries/user';
-
+import { createUser, getUserFromGoogleId } from '$lib/server/db/queries/user';
+import { google } from '$lib/server/auth/oauth';
+import { decodeIdToken } from 'arctic';
+import type { UserDraft } from '$lib/server/db/types';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { OAuth2Tokens } from 'arctic';
-import type { UserDraft } from '$lib/server/db/types';
 
 export async function GET(event: RequestEvent): Promise<Response> {
 	const code = event.url.searchParams.get('code');
 	const state = event.url.searchParams.get('state');
-	const storedState = event.cookies.get('github_oauth_state') ?? null;
-	if (code === null || state === null || storedState === null) {
+	const storedState = event.cookies.get('google_oauth_state') ?? null;
+	const codeVerifier = event.cookies.get('google_code_verifier') ?? null;
+	if (code === null || state === null || storedState === null || codeVerifier === null) {
 		return new Response(null, {
 			status: 400
 		});
@@ -25,7 +26,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 	let tokens: OAuth2Tokens;
 	try {
-		tokens = await github.validateAuthorizationCode(code);
+		tokens = await google.validateAuthorizationCode(code, codeVerifier);
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (e) {
 		// Invalid code or client credentials
@@ -33,19 +34,14 @@ export async function GET(event: RequestEvent): Promise<Response> {
 			status: 400
 		});
 	}
-	const githubUserResponse = await fetch('https://api.github.com/user', {
-		headers: {
-			Authorization: `Bearer ${tokens.accessToken()}`
-		}
-	});
-	const githubUser = await githubUserResponse.json();
-	const githubUserId = githubUser.id;
-	const githubUsername = githubUser.login;
+	const claims = decodeIdToken(tokens.idToken()) as { sub: string; name?: string };
+	const googleUserId = claims.sub;
+	const username = claims.name;
 
 	// TODO: Replace this with your own DB query.
-	const existingUser = await getUserFromGitHubId(githubUserId);
+	const existingUser = await getUserFromGoogleId(googleUserId);
 
-	if (existingUser) {
+	if (existingUser !== null) {
 		const sessionToken = generateSessionToken();
 		const session = await createSession(sessionToken, existingUser.id!);
 		setSessionTokenCookie(event, sessionToken, session.expiresAt!);
@@ -59,14 +55,13 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 	// TODO: Replace this with your own DB query.
 	const user = await createUser({
-		githubId: githubUserId,
-		username: githubUsername
+		username: username,
+		googleId: googleUserId
 	} as UserDraft);
 
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, user!.id!);
 	setSessionTokenCookie(event, sessionToken, session.expiresAt!);
-
 	return new Response(null, {
 		status: 302,
 		headers: {
