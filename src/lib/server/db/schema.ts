@@ -13,7 +13,8 @@ export const userTable = pgTable('user', {
 	githubId: integer('github_id'),
 	googleId: text('google_id'),
 	email: text('email'),
-	age: integer('age')
+	age: integer('age'),
+	phone_number: text('phone_number')
 });
 
 export const houseTable = pgTable('house', {
