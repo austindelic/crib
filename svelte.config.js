@@ -4,6 +4,9 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter()
+	},
+	compilerOptions: {
+		runes: true
 	}
 };
 export default config;

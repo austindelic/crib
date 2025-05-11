@@ -33,6 +33,8 @@
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^3.0.0",
+		"flowbite": "^3.1.2",
+		"flowbite-svelte": "^1.1.2",
 		"globals": "^16.0.0",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
@@ -50,7 +52,10 @@
 		"@oslojs/encoding": "^1.1.0",
 		"arctic": "^3.6.0",
 		"dotenv": "^16.5.0",
-		"drizzle-orm": "^0.40.0"
+		"drizzle-orm": "^0.40.0",
+		"formsnap": "^2.0.1",
+		"sveltekit-superforms": "^2.25.0",
+		"zod": "^3.24.4"
 	},
 	"engines": {
 		"node": "22"

@@ -1,16 +1,12 @@
 <script lang="ts">
-    export let data;
-    import Home from '$lib/components/pages/Home.svelte';
+	const { data } = $props();
+	import Home from '$lib/components/pages/Home.svelte';
 </script>
 
 {#if data.user}
-<div>
-<h1 class="text-3xl font-bold underline">
-  Hello world!
-</h1>
-</div>
-    
-    
+	<div>
+		<h1 class="text-3xl font-bold underline">Hello world!</h1>
+	</div>
 {:else}
-    <Home/>
+	<Home />
 {/if}
