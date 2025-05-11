@@ -1,7 +1,19 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+    export let data;
+    import Home from '$lib/components/Home.svelte';
 </script>
 
-<form method="post" use:enhance>
-	<button>Sign out</button>
-</form>
+{#if data.user}
+<div>
+    <div>
+        <h1>this is crib.</h1>
+    </div>
+    <div>
+        <h1>Hello, {data.user.username}.</h1>
+    </div>
+</div>
+    
+    
+{:else}
+    <Home/>
+{/if}

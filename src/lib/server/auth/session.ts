@@ -1,9 +1,15 @@
-import { userTable, sessionTable } from '../db/schema';
+import { sessionTable } from '../db/schema';
 import type { UserStrict, SessionStrict } from '../db/types';
 import { eq } from 'drizzle-orm';
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { db } from '../db/index';
+import {
+	createSessionStrict,
+	selectSessionWithUser,
+	updateSessionExpirydate,
+	deleteSession
+} from '../db/queries/session';
 
 export function generateSessionToken(): string {
 	const bytes = new Uint8Array(20);
@@ -12,40 +18,31 @@ export function generateSessionToken(): string {
 	return token;
 }
 
-export async function createSession(token: string, userId: string): Promise<SessionStrict> {
+export async function createSession(token: string, user_id: string): Promise<SessionStrict> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
 	const session: SessionStrict = {
 		id: sessionId,
-		userId,
-		expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
+		user_id,
+		expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
 	};
-	await db.insert(sessionTable).values(session);
+	await createSessionStrict(session);
 	return session;
 }
 
 export async function validateSessionToken(token: string): Promise<SessionValidationResult> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	const result = await db
-		.select({ user: userTable, session: sessionTable })
-		.from(sessionTable)
-		.innerJoin(userTable, eq(sessionTable.userId, userTable.id))
-		.where(eq(sessionTable.id, sessionId));
+	const result = await selectSessionWithUser(sessionId);
 	if (result.length < 1) {
 		return { session: null, user: null };
 	}
 	const { user, session } = result[0];
-	if (Date.now() >= session.expiresAt.getTime()) {
-		await db.delete(sessionTable).where(eq(sessionTable.id, session.id));
+	if (Date.now() >= session.expires_at.getTime()) {
+		await deleteSession(session.id);
 		return { session: null, user: null };
 	}
-	if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
-		session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
-		await db
-			.update(sessionTable)
-			.set({
-				expiresAt: session.expiresAt
-			})
-			.where(eq(sessionTable.id, session.id));
+	if (Date.now() >= session.expires_at.getTime() - 1000 * 60 * 60 * 24 * 15) {
+		session.expires_at = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+		updateSessionExpirydate(session.expires_at, session.id);
 	}
 	return { session, user };
 }
@@ -55,7 +52,7 @@ export async function invalidateSession(sessionId: string): Promise<void> {
 }
 
 export async function invalidateAllSessions(userId: string): Promise<void> {
-	await db.delete(sessionTable).where(eq(sessionTable.userId, userId));
+	await db.delete(sessionTable).where(eq(sessionTable.user_id, userId));
 }
 
 export type SessionValidationResult =

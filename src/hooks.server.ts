@@ -2,7 +2,6 @@
 import { validateSessionToken } from './lib/server/auth/session';
 
 import { setSessionTokenCookie, deleteSessionTokenCookie } from './lib/server/auth/cookies';
-
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -15,7 +14,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	const { session, user } = await validateSessionToken(token);
 	if (session !== null) {
-		setSessionTokenCookie(event, token, session.expiresAt);
+		setSessionTokenCookie(event, token, session.expires_at);
 	} else {
 		deleteSessionTokenCookie(event);
 	}

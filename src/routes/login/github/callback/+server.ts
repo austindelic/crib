@@ -48,7 +48,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	if (existingUser) {
 		const sessionToken = generateSessionToken();
 		const session = await createSession(sessionToken, existingUser.id!);
-		setSessionTokenCookie(event, sessionToken, session.expiresAt!);
+		setSessionTokenCookie(event, sessionToken, session.expires_at!);
 		return new Response(null, {
 			status: 302,
 			headers: {
@@ -59,13 +59,13 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 	// TODO: Replace this with your own DB query.
 	const user = await createUser({
-		githubId: githubUserId,
+		github_id: githubUserId,
 		username: githubUsername
 	} as UserDraft);
 
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, user!.id!);
-	setSessionTokenCookie(event, sessionToken, session.expiresAt!);
+	setSessionTokenCookie(event, sessionToken, session.expires_at!);
 
 	return new Response(null, {
 		status: 302,

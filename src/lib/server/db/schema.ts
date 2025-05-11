@@ -10,8 +10,8 @@ export const userTable = pgTable('user', {
 
 	username: text('username').notNull(),
 	name: text('name'),
-	githubId: integer('github_id'),
-	googleId: text('google_id'),
+	github_id: integer('github_id'),
+	google_id: text('google_id'),
 	email: text('email'),
 	age: integer('age'),
 	phone_number: text('phone_number')
@@ -38,10 +38,10 @@ export const houseUsersTable = pgTable('house_users', {
 
 export const sessionTable = pgTable('session', {
 	id: text('id').primaryKey(),
-	userId: uuid('user_id')
+	user_id: uuid('user_id')
 		.notNull()
 		.references(() => userTable.id),
-	expiresAt: timestamp('expires_at', {
+	expires_at: timestamp('expires_at', {
 		withTimezone: true,
 		mode: 'date'
 	}).notNull()

@@ -44,7 +44,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	if (existingUser !== null) {
 		const sessionToken = generateSessionToken();
 		const session = await createSession(sessionToken, existingUser.id!);
-		setSessionTokenCookie(event, sessionToken, session.expiresAt!);
+		setSessionTokenCookie(event, sessionToken, session.expires_at!);
 		return new Response(null, {
 			status: 302,
 			headers: {
@@ -56,12 +56,12 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	// TODO: Replace this with your own DB query.
 	const user = await createUser({
 		username: username,
-		googleId: googleUserId
+		google_id: googleUserId
 	} as UserDraft);
 
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, user!.id!);
-	setSessionTokenCookie(event, sessionToken, session.expiresAt!);
+	setSessionTokenCookie(event, sessionToken, session.expires_at!);
 	return new Response(null, {
 		status: 302,
 		headers: {
