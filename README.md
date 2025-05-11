@@ -6,6 +6,8 @@ Crib is a house management app built by hackers, for hackers. Designed for share
 
 HackClub Neigherbpurhood app idea: Dormroom big brother helper. log complains with an upvote downvote system, a built in app to determine what time people are free, a link to share sensative info (1 time instant link), an affirmation system. An internal member vote system to determine leader (chess elo system based on voting)
 
+![](https://github-readme-stats.hackclub.dev/api/wakatime?username=1514&api_domain=hackatime.hackclub.com&theme=tokyonight&custom_title=Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8)
+
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
 ## Developing
