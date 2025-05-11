@@ -1,6 +1,5 @@
 @import 'tailwindcss';
-@import '@fontsource/fira-mono';
 
 .display-contents {
 	display: contents;
-  }
+}

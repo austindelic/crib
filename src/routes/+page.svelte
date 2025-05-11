@@ -1,16 +1,13 @@
 <script lang="ts">
     export let data;
-    import Home from '$lib/components/Home.svelte';
+    import Home from '$lib/components/pages/Home.svelte';
 </script>
 
 {#if data.user}
 <div>
-    <div>
-        <h1>this is crib.</h1>
-    </div>
-    <div>
-        <h1>Hello, {data.user.username}.</h1>
-    </div>
+<h1 class="text-3xl font-bold underline">
+  Hello world!
+</h1>
 </div>
     
     
