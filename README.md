@@ -1,5 +1,3 @@
-VISIT: [crib-peach.vercel.app](https://crib-peach.vercel.app/)
-
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
 <a id="readme-top"></a>
@@ -43,7 +41,7 @@ VISIT: [crib-peach.vercel.app](https://crib-peach.vercel.app/)
     <a href="https://github.com/austindelic/crib"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/austindelic/crib">View Demo</a>
+    <a href="https://crib-peach.vercel.app/">View Demo</a>
     &middot;
     <a href="https://github.com/austindelic/crib/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
@@ -219,8 +217,6 @@ Project Link: [https://github.com/austindelic/crib](https://github.com/austindel
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
-![GitHub License](https://img.shields.io/github/license/austindelic/crib)
 [contributors-shield]: https://img.shields.io/github/contributors/austindelic/crib.svg?style=for-the-badge
 [contributors-url]: https://github.com/austindelic/crib/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/austindelic/crib.svg?style=for-the-badge
@@ -229,8 +225,8 @@ Project Link: [https://github.com/austindelic/crib](https://github.com/austindel
 [stars-url]: https://github.com/austindelic/crib/stargazers
 [issues-shield]: https://img.shields.io/github/issues/austindelic/crib.svg?style=for-the-badge
 [issues-url]: https://github.com/austindelic/crib/issues
-[license-shield]: https://img.shields.io/github/license/austindelic/crib.svg?style=for-the-badge
-[license-url]: https://github.com/austindelic/crib/blob/master/LICENCE.txt
+[license-shield]: https://img.shields.io/badge/license-CC--BY--NC%204.0-lightgrey?style=for-the-badge
+[license-url]: https://github.com/austindelic/crib/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/austindelic
 [product-screenshot]: images/screenshot.png
