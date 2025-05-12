@@ -25,7 +25,7 @@ VISIT: [crib-peach.vercel.app](https://crib-peach.vercel.app/)
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![project_licence][licence-shield]][licence-url]
+[![License: CC BY-NC 4.0][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -219,6 +219,8 @@ Project Link: [https://github.com/austindelic/crib](https://github.com/austindel
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
+[![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+![GitHub License](https://img.shields.io/github/license/austindelic/crib)
 [contributors-shield]: https://img.shields.io/github/contributors/austindelic/crib.svg?style=for-the-badge
 [contributors-url]: https://github.com/austindelic/crib/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/austindelic/crib.svg?style=for-the-badge
@@ -227,8 +229,8 @@ Project Link: [https://github.com/austindelic/crib](https://github.com/austindel
 [stars-url]: https://github.com/austindelic/crib/stargazers
 [issues-shield]: https://img.shields.io/github/issues/austindelic/crib.svg?style=for-the-badge
 [issues-url]: https://github.com/austindelic/crib/issues
-[licence-shield]: https://img.shields.io/github/license/austindelic/crib.svg?style=for-the-badge
-[licence-url]: https://github.com/austindelic/crib/blob/master/LICENCE.txt
+[license-shield]: https://img.shields.io/github/license/austindelic/crib.svg?style=for-the-badge
+[license-url]: https://github.com/austindelic/crib/blob/master/LICENCE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/austindelic
 [product-screenshot]: images/screenshot.png
