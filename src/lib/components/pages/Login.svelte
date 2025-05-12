@@ -1,5 +1,5 @@
 <div class="mx-auto mt-16 max-w-md rounded-xl bg-white p-8 text-center shadow-lg">
-	<h1 class="mb-4 text-3xl font-bold text-gray-800">Welcome!</h1>
+	<h1 class="mb-4 text-3xl font-bold text-gray-800">Login to crib.</h1>
 	<p class="mb-8 text-gray-600">
 		This site is currently under development.<br />
 		If you are a dev, please follow below.

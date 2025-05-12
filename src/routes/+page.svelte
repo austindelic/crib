@@ -1,12 +1,12 @@
 <script lang="ts">
-	const { data } = $props();
+	const props = $props();
+	const { user } = props.data;
 	import Home from '$lib/components/pages/Home.svelte';
+	import Dashboard from '$lib/components/pages/Dashboard.svelte';
 </script>
 
-{#if data.user}
-	<div>
-		<h1 class="text-3xl font-bold underline">Hello world!</h1>
-	</div>
+{#if user}
+	<Dashboard {user} />
 {:else}
 	<Home />
 {/if}

@@ -42,7 +42,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	const githubUserId = githubUser.id;
 	const githubUsername = githubUser.login;
 
-	// TODO: Replace this with your own DB query.
 	const existingUser = await getUserFromGitHubId(githubUserId);
 
 	if (existingUser) {
@@ -57,7 +56,6 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		});
 	}
 
-	// TODO: Replace this with your own DB query.
 	const user = await createUser({
 		github_id: githubUserId,
 		username: githubUsername
