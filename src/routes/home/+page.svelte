@@ -1,6 +1,5 @@
 <script lang="ts">
-    import Home from '$lib/components/pages/Home.svelte';
+	import Home from '$lib/components/pages/Home.svelte';
 </script>
 
-<Home/>
-
+<Home />
