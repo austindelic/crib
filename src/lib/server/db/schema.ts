@@ -2,7 +2,8 @@ import { pgTable, text, uuid, timestamp, integer } from 'drizzle-orm/pg-core';
 
 const baseFields = {
 	id: uuid('id').defaultRandom().primaryKey(),
-	createdAt: timestamp('created_at').defaultNow()
+	last_updated: timestamp('created_at').defaultNow(),
+	created_at: timestamp('created_at').defaultNow()
 };
 
 export const userTable = pgTable('user', {

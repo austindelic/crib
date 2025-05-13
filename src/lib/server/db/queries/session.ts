@@ -20,7 +20,7 @@ export async function updateSessionExpirydate(
 		.where(eq(sessionTable.id, session_id));
 }
 
-export async function selectSessionWithUser(session_id: string) {
+export async function selectSessionFromIdWithUser(session_id: string) {
 	const result = await db
 		.select({ user: userTable, session: sessionTable })
 		.from(sessionTable)

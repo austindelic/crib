@@ -6,7 +6,7 @@ import { sha256 } from '@oslojs/crypto/sha2';
 import { db } from '../db/index';
 import {
 	createSessionStrict,
-	selectSessionWithUser,
+	selectSessionFromIdWithUser,
 	updateSessionExpirydate,
 	deleteSession
 } from '../db/queries/session';
@@ -31,7 +31,7 @@ export async function createSession(token: string, user_id: string): Promise<Ses
 
 export async function validateSessionToken(token: string): Promise<SessionValidationResult> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	const result = await selectSessionWithUser(sessionId);
+	const result = await selectSessionFromIdWithUser(sessionId);
 	if (result.length < 1) {
 		return { session: null, user: null };
 	}

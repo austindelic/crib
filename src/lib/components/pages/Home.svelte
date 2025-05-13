@@ -4,7 +4,7 @@
 
 <main>
 	<h1>Welcome to crib.</h1>
-	<p>HOME WELCOME PAGE</p>
+	<p>Need to add dashboard</p>
 
-	<p>Feel free to explore the rest of the site!</p>
+	<p>Sign up and login link.</p>
 </main>

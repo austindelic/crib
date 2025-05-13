@@ -191,7 +191,7 @@ Don't forget to give the project a star! Thanks again!
 
 ## License
 
-Distributed under the project_license. See `LICENSE.txt` for more information.
+Distributed under the Creative Commons Attribution-NonCommercial 4.0 International License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
