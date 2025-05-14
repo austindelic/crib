@@ -3,9 +3,7 @@ import { db } from '../index';
 import { sessionTable, userTable } from '../schema';
 import type { SessionNullable, Session } from '../types';
 
-export async function createSessionStrict(
-	session_data: Session
-): Promise<SessionNullable | null> {
+export async function createSessionStrict(session_data: Session): Promise<SessionNullable | null> {
 	const [session] = await db.insert(sessionTable).values(session_data).returning();
 	return session ?? null;
 }
@@ -31,6 +29,10 @@ export async function selectSessionFromIdWithUser(session_id: string) {
 	return result ?? null;
 }
 
-export async function deleteSession(session_id: string): Promise<void> {
+export async function deleteSessionFromId(session_id: string): Promise<void> {
 	await db.delete(sessionTable).where(eq(sessionTable.id, session_id));
+}
+
+export async function deleteSessionsFromUserId(user_id: string): Promise<void> {
+	await db.delete(sessionTable).where(eq(sessionTable.user_id, user_id));
 }

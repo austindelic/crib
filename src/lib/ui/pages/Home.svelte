@@ -6,7 +6,7 @@
 
 <main>
 	<Navbar {user} />
-	<h1>Welcome to crib GUEST.</h1>
+	<h1>Welcome to crib.</h1>
 	<p>Need to add dashboard</p>
 	<p>Need to add some content</p>
 	<p>Sign up and login link.</p>

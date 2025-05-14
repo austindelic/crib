@@ -2,7 +2,6 @@
 	import type { User } from '$lib/server/db/types';
 
 	let { user }: { user: User } = $props();
-	console.log(user);
 </script>
 
 <main>

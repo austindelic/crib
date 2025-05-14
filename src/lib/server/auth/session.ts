@@ -8,7 +8,7 @@ import {
 	createSessionStrict,
 	selectSessionFromIdWithUser,
 	updateSessionExpirydate,
-	deleteSession
+	deleteSessionFromId
 } from '../db/queries/session';
 
 export function generateSessionToken(): string {
@@ -37,7 +37,7 @@ export async function validateSessionToken(token: string): Promise<SessionValida
 	}
 	const { user, session } = result[0];
 	if (Date.now() >= session.expires_at.getTime()) {
-		await deleteSession(session.id);
+		await deleteSessionFromId(session.id);
 		return { session: null, user: null };
 	}
 	if (Date.now() >= session.expires_at.getTime() - 1000 * 60 * 60 * 24 * 15) {
