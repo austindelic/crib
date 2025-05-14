@@ -37,3 +37,17 @@
 		display: none;
 	}
 }
+
+@font-face {
+	font-family: 'Rubik Vinyl';
+	src: url('/fonts/RubikVinyl-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@layer utilities {
+	.font-rubikvinyl {
+		font-family: 'Rubik Vinyl', sans-serif;
+	}
+}

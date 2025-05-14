@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Login from '$lib/components/pages/Login.svelte';
+	import Login from '$lib/ui/pages/Login.svelte';
 </script>
 
 <svelte:head>

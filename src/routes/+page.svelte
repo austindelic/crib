@@ -1,12 +1,13 @@
 <script lang="ts">
-	const props = $props();
-	const { user } = props.data;
-	import Home from '$lib/components/pages/Home.svelte';
-	import Dashboard from '$lib/components/pages/Dashboard.svelte';
+	import Dashboard from '$lib/ui/pages/Dashboard.svelte';
+	import Home from '$lib/ui/pages/Home.svelte';
+	import type { UserStrict } from '$lib/server/db/types';
+	const { data } = $props();
+	const { user } = data as { user: UserStrict };
 </script>
 
 {#if user}
 	<Dashboard {user} />
 {:else}
-	<Home />
+	<Home {user} />
 {/if}
