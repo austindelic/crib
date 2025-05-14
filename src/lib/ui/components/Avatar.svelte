@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { Avatar, Dropdown, DropdownHeader, DropdownItem, DropdownGroup } from 'flowbite-svelte';
-	import type { User, UserStrict } from '$lib/server/db/types';
-	function getAvatarUrl(user: UserStrict): string {
+	import type { User } from '$lib/server/db/types';
+
+	function getAvatarUrl(user: User): string {
 		if (user.avatar_provider === 'github') {
 			return `https://avatars.githubusercontent.com/u/${user.id}?v=4`;
 		} else {
 			return '';
 		}
 	}
-	const user = $props() as UserStrict;
+
+	const { user }: { user: User | null } = $props();
+	if (!user) {
+		throw new Error('User is not defined in Avatar');
+	}
 </script>
 
 <Avatar id="user-drop" src={getAvatarUrl(user)} class="cursor-pointer" dot={{ color: 'green' }} />

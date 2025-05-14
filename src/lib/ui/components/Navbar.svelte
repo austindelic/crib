@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
-	import type { UserStrict } from '$lib/server/db/types';
+	import type { User } from '$lib/server/db/types';
 	import Avatar from './Avatar.svelte';
-	const { user } = $props() as { user: UserStrict };
+	const { user }: { user: User | null } = $props();
 </script>
 
 <Navbar>

@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+
 <div class="mx-auto mt-16 max-w-md rounded-xl bg-white p-8 text-center shadow-lg">
 	<h1 class="mb-4 text-3xl font-bold text-gray-800">Login to crib.</h1>
 	<p class="mb-8 text-gray-600">

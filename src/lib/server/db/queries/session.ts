@@ -1,9 +1,11 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../index';
 import { sessionTable, userTable } from '../schema';
-import type { Session, SessionStrict } from '../types';
+import type { SessionNullable, Session } from '../types';
 
-export async function createSessionStrict(session_data: SessionStrict): Promise<Session | null> {
+export async function createSessionStrict(
+	session_data: Session
+): Promise<SessionNullable | null> {
 	const [session] = await db.insert(sessionTable).values(session_data).returning();
 	return session ?? null;
 }

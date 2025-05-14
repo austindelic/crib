@@ -2,12 +2,13 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { invalidateSession } from '$lib/server/auth/session';
 import { deleteSessionTokenCookie } from '$lib/server/auth/cookies';
+import type { User } from '$lib/server/db/types';
 
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
 	return {
-		user: event.locals.user
+		user: event.locals.user as User
 	};
 };
 

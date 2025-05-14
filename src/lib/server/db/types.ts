@@ -5,21 +5,21 @@ import * as schema from './schema';
 type Nullable<T> = { [P in keyof T]: T[P] | null };
 
 // --- User Types ---
-export type UserStrict = InferSelectModel<typeof schema.userTable>; // Direct from schema
-export type UserDraft = Omit<UserStrict, 'id' | 'createdAt'>; // For inserts
-export type User = Nullable<UserStrict>; // All fields nullable
+export type User = InferSelectModel<typeof schema.userTable>; // Direct from schema
+export type UserDraft = Omit<User, 'id' | 'createdAt'>; // For inserts
+export type UserNullable = Nullable<User>; // All fields nullable
 
 // --- House Types ---
-export type HouseStrict = InferSelectModel<typeof schema.houseTable>;
-export type HouseDraft = Omit<HouseStrict, 'id' | 'createdAt'>;
-export type House = Nullable<HouseStrict>;
+export type House = InferSelectModel<typeof schema.houseTable>;
+export type HouseDraft = Omit<House, 'id' | 'createdAt'>;
+export type HouseNullable = Nullable<House>;
 
 // --- HouseUsers Types ---
-export type HouseUsersStrict = InferSelectModel<typeof schema.houseUsersTable>;
-export type HouseUsersDraft = Omit<HouseUsersStrict, 'id' | 'createdAt'>;
-export type HouseUsers = Nullable<HouseUsersStrict>;
+export type HouseUsers = InferSelectModel<typeof schema.houseUsersTable>;
+export type HouseUsersDraft = Omit<HouseUsers, 'id' | 'createdAt'>;
+export type HouseUsersNullable = Nullable<HouseUsers>;
 
 // --- Session Types ---
-export type SessionStrict = InferSelectModel<typeof schema.sessionTable>;
-export type SessionDraft = Omit<SessionStrict, 'id' | 'createdAt'>;
-export type Session = Nullable<SessionStrict>;
+export type Session = InferSelectModel<typeof schema.sessionTable>;
+export type SessionDraft = Omit<Session, 'id' | 'createdAt'>;
+export type SessionNullable = Nullable<Session>;
