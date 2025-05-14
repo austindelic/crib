@@ -3,7 +3,7 @@ import { db } from '../index';
 import { userTable } from '../schema';
 import type { User, UserDraft } from '../types';
 
-const DISALLOW_NEW_USERS = true;
+const DISALLOW_NEW_USERS = false;
 
 export async function getUserFromGitHubId(githubId: number): Promise<User | null> {
 	const [user] = await db.select().from(userTable).where(eq(userTable.github_id, githubId));

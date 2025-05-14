@@ -1,9 +1,12 @@
-import { pgTable, text, uuid, timestamp, integer } from 'drizzle-orm/pg-core';
+import { pgTable, text, uuid, timestamp, integer, pgEnum } from 'drizzle-orm/pg-core';
+
+export const avatar_providers = pgEnum('avatar_provider', ['github', 'google']);
 
 const baseFields = {
 	id: uuid('id').defaultRandom().primaryKey(),
-	last_updated: timestamp('created_at').defaultNow(),
-	created_at: timestamp('created_at').defaultNow()
+
+	created_at: timestamp('created_at').defaultNow(),
+	last_updated: timestamp('last_updated').defaultNow()
 };
 
 export const userTable = pgTable('user', {
@@ -15,7 +18,8 @@ export const userTable = pgTable('user', {
 	google_id: text('google_id'),
 	email: text('email'),
 	age: integer('age'),
-	phone_number: text('phone_number')
+	phone_number: text('phone_number'),
+	avatar_provider: avatar_providers()
 });
 
 export const houseTable = pgTable('house', {

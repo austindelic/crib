@@ -1,27 +1,34 @@
 <script lang="ts">
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
-
-	const { user } = $props();
-	console.log(user);
+	import type { UserStrict } from '$lib/server/db/types';
+	import Avatar from './Avatar.svelte';
+	const { user } = $props() as { user: UserStrict };
 </script>
 
 <Navbar>
 	<NavBrand href="/">
-		<img src="/images/flowbite-svelte-icon-logo.svg" class="me-3 h-6 sm:h-9" alt="crib. Logo" />
-		<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span
-		>
+		<span class="font-rubikvinyl self-centre text-xl whitespace-nowrap dark:text-white">crib.</span>
 	</NavBrand>
 	<NavHamburger />
 	<NavUl>
-		<NavLi href="/">Home</NavLi>
+		{#if user}
+			<NavLi href="/home">Home</NavLi>
+		{:else}
+			<NavLi href="/">Home</NavLi>
+		{/if}
 		<NavLi href="/about">About</NavLi>
 		<NavLi href="/docs/components/navbar">Navbar</NavLi>
 		<NavLi href="/pricing">Pricing</NavLi>
 		<NavLi href="/contact">Contact</NavLi>
 		{#if user}
-			<NavLi href="/home">Home</NavLi>
+			<div>
+				<NavLi href="/account">Account</NavLi>
+			</div>
+			<div>
+				<Avatar {user} />
+			</div>
 		{:else}
-			<NavLi href="/">Home</NavLi>
+			<NavLi href="/login">Login</NavLi>
 		{/if}
 	</NavUl>
 </Navbar>

@@ -58,7 +58,8 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 	const user = await createUser({
 		github_id: githubUserId,
-		username: githubUsername
+		username: githubUsername,
+		avatar_provider: 'github'
 	} as UserDraft);
 
 	const sessionToken = generateSessionToken();

@@ -54,7 +54,8 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 	const user = await createUser({
 		username: username,
-		google_id: googleUserId
+		google_id: googleUserId,
+		avatar_provider: 'google'
 	} as UserDraft);
 
 	const sessionToken = generateSessionToken();
