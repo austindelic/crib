@@ -1,14 +1,14 @@
 <script lang="ts">
-	import Dashboard from '$lib/ui/pages/Dashboard.svelte';
+	import App from '$lib/ui/pages/App.svelte';
 	import Home from '$lib/ui/pages/Home.svelte';
 	import type { User } from '$lib/server/db/types';
 
-	const { data } = $props();
-	const { user }: { user: User | null } = data;
+	let { data } = $props<{ data: { user: User | null } }>();
+	let { user } = data;
 </script>
 
 {#if user}
-	<Dashboard {user} />
+	<App {user} />
 {:else}
 	<Home user={null} />
 {/if}

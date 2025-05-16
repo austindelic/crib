@@ -2,8 +2,8 @@
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
 	import type { User } from '$lib/server/db/types';
 	import Avatar from './Avatar.svelte';
-	import Dashboard from '../pages/Dashboard.svelte';
-	const { user }: { user: User | null } = $props();
+	import App from '../pages/App.svelte';
+	const { user } = $props<{ user: User | null }>();
 </script>
 
 <Navbar>
@@ -13,7 +13,7 @@
 	<NavHamburger />
 	<NavUl>
 		{#if user}
-			<NavLi href="/">Dashboard</NavLi>
+			<NavLi href="/">App</NavLi>
 		{/if}
 		<NavLi href={user ? '/home' : '/'}>Home</NavLi>
 		<NavLi href="/about">About</NavLi>
