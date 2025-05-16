@@ -32,8 +32,9 @@
 - [x] Create `users` table in Drizzle schema
 - [x] Save new users to DB on login
 - [x] Write session validation logic middleware
-- [ ] Show logged-in user name in navbar
-- [ ] Show avatar in navbar
+- [x] Show logged-in user name in navbar
+- [x] Show avatar in navbar
+- [x] Added account logout page
 
 ---
 
