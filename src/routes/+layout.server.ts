@@ -15,6 +15,9 @@ export const load: LayoutServerLoad = async (event) => {
 	if (!event.locals.user) {
 		throw redirect(302, '/login');
 	}
+	if (!event.locals.user.dob) {
+		throw redirect(302, '/onboarding');
+	}
 	return {
 		user: event.locals.user
 	};

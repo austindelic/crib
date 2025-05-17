@@ -1,4 +1,4 @@
-import { pgTable, text, uuid, timestamp, integer, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, text, uuid, timestamp, integer, pgEnum, date } from 'drizzle-orm/pg-core';
 
 export const avatar_providers = pgEnum('avatar_provider', ['github', 'google']);
 
@@ -17,7 +17,7 @@ export const userTable = pgTable('user', {
 	github_id: integer('github_id'),
 	google_id: text('google_id'),
 	email: text('email'),
-	age: integer('age'),
+	dob: date('dob'),
 	phone_number: text('phone_number'),
 	avatar_provider: avatar_providers()
 });
