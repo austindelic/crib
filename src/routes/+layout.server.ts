@@ -19,24 +19,20 @@ function isTestRoute(route_id: string | null): boolean {
 }
 
 export const load = (async ({ locals, route }) => {
-	const { user } = locals;
+	const user = locals.user;
 	const route_id = route.id;
+	if (user) {
+		if (!user.dob) {
+			if (route_id !== CONFIG.onboardingPath) {
+				throw redirect(302, CONFIG.onboardingPath);
+			}
+		}
+		return { user };
+	}
 
 	if (isPublicRoute(route_id) || isTestRoute(route_id)) {
 		return { user: user || undefined };
 	}
 
-	if (!user) {
-		throw redirect(302, CONFIG.loginPath);
-	}
-
-	if (!user.dob) {
-		if (route_id != CONFIG.onboardingPath) {
-			throw redirect(302, CONFIG.onboardingPath);
-		} else {
-			return {};
-		}
-	}
-
-	return { user };
+	throw redirect(302, CONFIG.loginPath);
 }) satisfies LayoutServerLoad;

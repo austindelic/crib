@@ -28,6 +28,7 @@
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.1.6",
 		"@types/node": "^22",
+		"date-fns": "^4.1.0",
 		"drizzle-kit": "^0.31.1",
 		"drizzle-seed": "^0.3.1",
 		"eslint": "^9.26.0",
