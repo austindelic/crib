@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../index';
 import { userTable } from '../schema';
-import type { UserNullable, UserDraft } from '../types';
+import type { UserNullable, UserDraft, User } from '../types';
 
 const DISALLOW_NEW_USERS = false;
 
@@ -26,4 +26,14 @@ export async function createUser(user_data: UserDraft): Promise<UserNullable | n
 	}
 	const [user] = await db.insert(userTable).values(user_data).returning();
 	return user ?? null;
+}
+
+export async function updateUser(user_data: User): Promise<UserNullable | null> {
+	const [updated_user] = await db
+		.update(userTable)
+		.set(user_data)
+		.where(eq(userTable.id, user_data.id))
+		.returning();
+
+	return updated_user ?? null;
 }

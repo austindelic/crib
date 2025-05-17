@@ -1,24 +1,42 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
-const TEST_MODE = true;
-export const load: LayoutServerLoad = async (event) => {
-	// Allow root page (/) to be public
-	if (event.route.id === '/' || event.route.id === '/home' || event.route.id === '/login') {
-		return {};
+const PUBLIC_ROUTES = ['/home', '/', '/login'];
+const TEST_ROUTES = ['/test'];
+
+const CONFIG = {
+	testMode: true,
+	onboardingPath: '/onboarding',
+	loginPath: '/login'
+};
+
+function isPublicRoute(route_id: string | null): boolean {
+	return PUBLIC_ROUTES.includes(route_id ?? '');
+}
+
+function isTestRoute(route_id: string | null): boolean {
+	return CONFIG.testMode && TEST_ROUTES.includes(route_id ?? '');
+}
+
+export const load = (async ({ locals, route }) => {
+	const { user } = locals;
+	const route_id = route.id;
+
+	if (isPublicRoute(route_id) || isTestRoute(route_id)) {
+		return { user: user || undefined };
 	}
-	if (TEST_MODE) {
-		if (event.route.id === '/test') {
+
+	if (!user) {
+		throw redirect(302, CONFIG.loginPath);
+	}
+
+	if (!user.dob) {
+		if (route_id != CONFIG.onboardingPath) {
+			throw redirect(302, CONFIG.onboardingPath);
+		} else {
 			return {};
 		}
 	}
-	if (!event.locals.user) {
-		throw redirect(302, '/login');
-	}
-	if (!event.locals.user.dob) {
-		throw redirect(302, '/onboarding');
-	}
-	return {
-		user: event.locals.user
-	};
-};
+
+	return { user };
+}) satisfies LayoutServerLoad;
