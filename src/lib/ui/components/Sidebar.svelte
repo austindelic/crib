@@ -5,17 +5,10 @@
 		SidebarItem,
 		SidebarButton,
 		uiHelpers,
-		SidebarBrand
+		SidebarBrand,
+		SidebarDropdownWrapper
 	} from 'flowbite-svelte';
-	import {
-		ChartLine,
-		LayoutGrid,
-		Mailbox,
-		User,
-		House,
-		BrushCleaning,
-		MessageSquareWarning
-	} from '@lucide/svelte';
+	import { ChartLine, User, House, BrushCleaning, MessageSquareWarning } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import Avatar from './Avatar.svelte';
@@ -61,35 +54,19 @@
 					>crib.</span
 				>
 			</SidebarBrand>
-			<SidebarItem label="Dashboard" href="/">
-				{#snippet icon()}
-					<ChartLine
-						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-					/>
-				{/snippet}
-			</SidebarItem>
-			<SidebarItem label="Issues" {spanClass} href="/">
-				{#snippet icon()}
-					<MessageSquareWarning
-						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-					/>
-				{/snippet}
-			</SidebarItem>
-			<SidebarItem label="Chores" {spanClass} href="/chores">
-				{#snippet icon()}
-					<BrushCleaning
-						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-					/>
-				{/snippet}
-			</SidebarItem>
-			<SidebarItem label="Houses">
+			<SidebarDropdownWrapper label="Austin's House" btnClass="p-2">
 				{#snippet icon()}
 					<House
 						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
 					/>
 				{/snippet}
-			</SidebarItem>
-			<SidebarItem label="Account">
+				<SidebarItem label="Dashboard" href="/docs/components/sidebar" />
+				<SidebarItem label="Issues" />
+				<SidebarItem label="Chores" />
+			</SidebarDropdownWrapper>
+		</SidebarGroup>
+		<SidebarGroup border>
+			<SidebarItem label="">
 				{#snippet icon()}
 					<Avatar {user} />
 				{/snippet}
