@@ -39,6 +39,18 @@ export const houseUsersTable = pgTable('house_users', {
 		.notNull()
 });
 
+export const houseJoinCodeTable = pgTable('house_join_code', {
+	id: text('id').primaryKey(),
+	house_id: uuid('house_id')
+		.references(() => houseTable.id)
+		.notNull(),
+	user_id: uuid('user_id')
+		.references(() => userTable.id)
+		.notNull(),
+	created_at: timestamp('created_at').defaultNow(),
+	last_updated: timestamp('last_updated').defaultNow()
+});
+
 //Auth tables
 
 export const sessionTable = pgTable('session', {

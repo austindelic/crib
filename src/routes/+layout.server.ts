@@ -26,8 +26,7 @@ export const load = (async ({ locals, route }) => {
 			if (route_id !== CONFIG.onboardingPath) {
 				throw redirect(302, CONFIG.onboardingPath);
 			}
-		}
-		if (route_id == '/onboarding') {
+		} else if (route_id == '/onboarding') {
 			throw redirect(302, '/');
 		}
 		return { user };

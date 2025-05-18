@@ -2,7 +2,6 @@
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
 	import type { User } from '$lib/server/db/types';
 	import Avatar from './Avatar.svelte';
-	import App from '../pages/App.svelte';
 	const { user } = $props<{ user: User | null }>();
 </script>
 

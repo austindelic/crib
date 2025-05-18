@@ -1,7 +1,3 @@
-<script>
-	import { Alert } from 'flowbite-svelte';
-</script>
-
 <div class="p-8">
 	<h1 class="text-huge">This should be 6rem font size</h1>
 	<h2 class="font-rubikvinyl text-3xl">This should be Rubik Vinyl</h2>

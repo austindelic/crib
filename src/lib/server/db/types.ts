@@ -23,3 +23,8 @@ export type HouseUsersNullable = Nullable<HouseUsers>;
 export type Session = InferSelectModel<typeof schema.sessionTable>;
 export type SessionDraft = Omit<Session, 'id' | 'createdAt'>;
 export type SessionNullable = Nullable<Session>;
+
+// --- HouseJoinCode Types ---
+export type HouseJoinCode = InferSelectModel<typeof schema.houseJoinCodeTable>;
+export type HouseJoinCodeDraft = Omit<HouseJoinCode, 'id' | 'createdAt'>;
+export type HouseJoinCodeNullable = Nullable<Session>;

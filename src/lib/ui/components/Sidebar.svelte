@@ -8,7 +8,7 @@
 		SidebarBrand,
 		SidebarDropdownWrapper
 	} from 'flowbite-svelte';
-	import { ChartLine, User, House, BrushCleaning, MessageSquareWarning } from '@lucide/svelte';
+	import { User, House } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import Avatar from './Avatar.svelte';
@@ -19,7 +19,6 @@
 	}>();
 
 	let activeUrl = $state(page.url.pathname);
-	const spanClass = 'flex-1 ms-3 whitespace-nowrap';
 	const demoSidebarUi = uiHelpers();
 	let isDemoOpen = $state(false);
 	const closeDemoSidebar = demoSidebarUi.close;
@@ -27,12 +26,6 @@
 		isDemoOpen = demoSidebarUi.isOpen;
 		activeUrl = page.url.pathname;
 	});
-	const site = {
-		name: 'crib.',
-		href: '/',
-		img: '/images/flowbite-svelte-icon-logo.svg',
-		imgClass: 'font-rubikvinyl h-6 w-6 '
-	};
 </script>
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2" />
