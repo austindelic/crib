@@ -25,10 +25,13 @@ export const userTable = pgTable('user', {
 export const houseTable = pgTable('house', {
 	...baseFields,
 
-	name: text('name').notNull()
+	name: text('name').notNull(),
+	user_id: uuid('user_id')
+		.references(() => userTable.id)
+		.notNull()
 });
 
-export const houseUsersTable = pgTable('house_users', {
+export const houseUserTable = pgTable('house_user', {
 	...baseFields,
 
 	user_id: uuid('user_id')
@@ -47,6 +50,10 @@ export const houseJoinCodeTable = pgTable('house_join_code', {
 	user_id: uuid('user_id')
 		.references(() => userTable.id)
 		.notNull(),
+	expires_at: timestamp('expires_at', {
+		withTimezone: true,
+		mode: 'date'
+	}).notNull(),
 	created_at: timestamp('created_at').defaultNow(),
 	last_updated: timestamp('last_updated').defaultNow()
 });

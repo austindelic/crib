@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
 import { fail, redirect } from '@sveltejs/kit';
-import type { PageServerLoad, Actions } from '../$types';
+import type { PageServerLoad, Actions } from '../../$types';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { schema } from './schema';
-import { updateUser } from '$lib/server/db/queries/user';
-import type { User } from '$lib/server/db/types';
+import { selectHouseFromJoinCode } from '$lib/server/db/queries/house_join_code';
+import { createHouseUser } from '$lib/server/db/queries/house_users';
+import type { HouseUserDraft } from '$lib/server/db/types';
 export const load: PageServerLoad = async () => {
 	return {
 		form: await superValidate(zod(schema))
@@ -25,17 +25,17 @@ export const actions: Actions = {
 		if (!event.locals.user) {
 			return fail(401, { message: 'User not authenticated' });
 		}
-
-		const user_data: User = {
-			...event.locals.user,
-			name: form.data.name,
-			email: form.data.email,
-			dob: format(form.data.dob, 'MM-dd-yyyy'),
-			phone_number: form.data.phone_number ?? null
-		};
-
-		const updated_user = await updateUser(user_data);
-		if (updated_user) {
+		const join_code_data = form.data.join_code;
+		const house = await selectHouseFromJoinCode(join_code_data);
+		if (!house) {
+			throw new Error('Failed to select house from join code');
+		}
+		const house_user_data = {
+			user_id: event.locals.user.id,
+			house_id: house?.id
+		} as HouseUserDraft;
+		const house_user = await createHouseUser(house_user_data);
+		if (house_user) {
 			redirect(302, '/');
 		}
 	}

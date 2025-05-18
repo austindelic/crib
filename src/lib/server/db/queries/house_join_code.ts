@@ -1,15 +1,19 @@
 import { nanoid } from 'nanoid';
 import { eq } from 'drizzle-orm';
 import { db } from '../index';
-import { houseJoinCodeTable } from '../schema';
-import type { HouseJoinCodeDraft, HouseJoinCode } from '../types';
+import { houseJoinCodeTable, houseTable } from '../schema';
+import type { HouseJoinCodeDraft, HouseJoinCode, House } from '../types';
 
-export async function getHouseJoinCodeFromId(id: string): Promise<HouseJoinCode | null> {
-	const [join_code] = await db
+export async function selectHouseFromJoinCode(join_code_data: string): Promise<House | null> {
+	const [house_join_code] = await db
 		.select()
 		.from(houseJoinCodeTable)
-		.where(eq(houseJoinCodeTable.id, id));
-	return join_code ?? null;
+		.where(eq(houseJoinCodeTable.id, join_code_data));
+	const [house] = await db
+		.select()
+		.from(houseTable)
+		.where(eq(houseTable.id, house_join_code.house_id));
+	return house ?? null;
 }
 
 export async function createHouseJoinCode(

@@ -146,3 +146,7 @@
 - [ ] Collect user feedback and prioritise v2 roadmap
 
 ---
+
+## IDEAS
+
+- [ ] Meal Prep?

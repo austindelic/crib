@@ -18,4 +18,12 @@
 			Sign in with GitHub
 		</a>
 	</div>
+	<div>
+		<a
+			href="/login/google"
+			class="inline-block rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white shadow transition hover:bg-gray-800"
+		>
+			Sign in with Google
+		</a>
+	</div>
 </div>

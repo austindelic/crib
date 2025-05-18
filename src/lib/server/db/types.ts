@@ -15,9 +15,9 @@ export type HouseDraft = Omit<House, 'id' | 'createdAt'>;
 export type HouseNullable = Nullable<House>;
 
 // --- HouseUsers Types ---
-export type HouseUsers = InferSelectModel<typeof schema.houseUsersTable>;
-export type HouseUsersDraft = Omit<HouseUsers, 'id' | 'createdAt'>;
-export type HouseUsersNullable = Nullable<HouseUsers>;
+export type HouseUser = InferSelectModel<typeof schema.houseUserTable>;
+export type HouseUserDraft = Omit<HouseUser, 'id' | 'createdAt'>;
+export type HouseUserNullable = Nullable<HouseUser>;
 
 // --- Session Types ---
 export type Session = InferSelectModel<typeof schema.sessionTable>;
