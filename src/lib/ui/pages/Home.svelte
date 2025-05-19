@@ -1,7 +1,5 @@
 <script lang="ts">
-	import Navbar from '$lib/ui/components/Navbar.svelte';
 	import { Banner, Button, CloseButton } from 'flowbite-svelte';
-	import type { User } from '$lib/server/db/types';
 	import {
 		Section,
 		HeroHeader,

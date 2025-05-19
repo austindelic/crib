@@ -2,6 +2,7 @@
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, DarkMode } from 'flowbite-svelte';
 	import type { User } from '$lib/server/db/types';
 	import Avatar from './Avatar.svelte';
+	import LoginModal from '../modals/Login.svelte';
 	const { user } = $props<{ user: User | null }>();
 </script>
 
@@ -21,10 +22,10 @@
 		{#if user}
 			<Avatar {user} />
 		{:else}
-			<NavLi href="/login">Login</NavLi>
+			<NavLi>
+				<LoginModal />
+			</NavLi>
 		{/if}
-		<!-- src/routes/+layout.svelte -->
-
 		<DarkMode />
 	</NavUl>
 </Navbar>

@@ -19,7 +19,7 @@
 	}
 
 	async function handleLogout() {
-		const res = await fetch('/logout', {
+		const res = await fetch('/api/logout', {
 			method: 'POST'
 		});
 		if (res.ok) {
