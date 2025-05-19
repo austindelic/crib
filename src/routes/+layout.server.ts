@@ -16,34 +16,35 @@ function isTestRoute(route_id: string | null): boolean {
 	return CONFIG.testMode && TEST_ROUTES.includes(route_id ?? '');
 }
 
-function cleanRouteId(route_id: string | null): string {
+function getRoute(route_id: string | null): string {
 	return (route_id ?? '').replace(/\(.*?\)/g, ''); // removes all (group) parts
 }
 
-function safeRedirect(raw_route_id: string | null, redirect_route: string, status_code = 302) {
-	const route_id = cleanRouteId(raw_route_id);
-	if (route_id != redirect_route) {
-		console.log(route_id, redirect_route);
+function safeRedirect(route: string | null, redirect_route: string, status_code = 302) {
+	if (route != redirect_route) {
+		console.log(route, redirect_route);
 		throw redirect(status_code, redirect_route);
 	}
 }
 
 export const load = (async ({ locals, route }) => {
 	const user = locals.user;
-	const route_id = route.id;
+	const current_route = getRoute(route.id);
+
 	if (user) {
 		// there is a user
 		if (!user.dob) {
-			safeRedirect(route_id, '/');
+			safeRedirect(current_route, '/');
 			// internal logic to force onboarding.
 		}
 		return { user };
 	} else {
 		//there is no user
-		if (route_id == '/') {
+
+		if (current_route == '/') {
 			throw redirect(302, '/home');
 		}
-		if (isPublicRoute(route_id) || isTestRoute(route_id)) {
+		if (isPublicRoute(current_route) || isTestRoute(current_route)) {
 			return {};
 		}
 	}

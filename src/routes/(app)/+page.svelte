@@ -1,9 +1,10 @@
 <script lang="ts">
-	import App from '$lib/ui/pages/App.svelte';
-	import type { User } from '$lib/server/db/types';
-
-	let { data } = $props<{ data: { user: User } }>();
-	let { user } = data;
+	import { Section, HeroHeader } from 'flowbite-svelte-blocks';
 </script>
 
-<App {user} />
+<p>This is a test</p>
+<Section name="logos">
+	<HeroHeader>
+		{#snippet h2()}Select a House to get started.{/snippet}
+	</HeroHeader>
+</Section>

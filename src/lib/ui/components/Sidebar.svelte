@@ -29,7 +29,7 @@
 </script>
 
 <SidebarButton onclick={demoSidebarUi.toggle} class="mb-2" />
-<div class="relative">
+<div class="flex h-screen w-screen">
 	<Sidebar
 		{activeUrl}
 		backdrop={false}
@@ -66,7 +66,7 @@
 			</SidebarItem>
 		</SidebarGroup>
 	</Sidebar>
-	<div class="h-96 overflow-auto px-4 md:ml-64">
+	<div class="flex-1 overflow-auto p-4">
 		<div class="rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700">
 			{#if children}
 				{@render children()}

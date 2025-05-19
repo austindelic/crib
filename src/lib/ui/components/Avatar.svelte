@@ -8,7 +8,7 @@
 		Button,
 		Modal
 	} from 'flowbite-svelte';
-	import type { User } from '$lib/server/db/types';
+	import type { User } from '$lib/server/types';
 
 	function getAvatarUrl(user: User): string {
 		if (user.avatar_provider === 'github') {
