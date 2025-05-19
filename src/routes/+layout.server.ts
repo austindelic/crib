@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
-const PUBLIC_ROUTES = ['/home', '/', '/login'];
+const PUBLIC_ROUTES = ['/home', '/login', '/home/pricing', '/home/about', '/homecontact'];
 const TEST_ROUTES = ['/test'];
 
 const CONFIG = {
@@ -30,10 +30,13 @@ export const load = (async ({ locals, route }) => {
 			throw redirect(302, '/');
 		}
 		return { user };
-	}
-
-	if (isPublicRoute(route_id) || isTestRoute(route_id)) {
-		return { user: user || undefined };
+	} else {
+		if (route_id == '/') {
+			throw redirect(302, '/home');
+		}
+		if (isPublicRoute(route_id) || isTestRoute(route_id)) {
+			return {};
+		}
 	}
 
 	throw redirect(302, CONFIG.loginPath);

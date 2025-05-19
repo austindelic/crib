@@ -7,7 +7,8 @@
 		HeroHeader,
 		FeatureDefault,
 		FeatureItem,
-		ContentWithImage
+		ContentWithImage,
+		Cta
 	} from 'flowbite-svelte-blocks';
 	import {
 		ChartPieSolid,
@@ -18,7 +19,6 @@
 		CogOutline,
 		ArrowRightOutline
 	} from 'flowbite-svelte-icons';
-	let { user }: { user: User | null } = $props();
 	let visible = $state(true);
 </script>
 
@@ -40,7 +40,6 @@
 			</Banner>
 		{/if}
 	</div>
-	<Navbar {user} />
 	<Section name="heroVisual">
 		<div class="mr-auto place-self-center lg:col-span-7">
 			<HeroHeader
@@ -145,5 +144,18 @@
 				/>
 			{/snippet}
 		</ContentWithImage>
+	</Section>
+	<Section name="cta">
+		<Cta ctatype="heading">
+			{#snippet h2()}Start your free trial today{/snippet}
+			<p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
+				Try Flowbite Platform for 30 days. No credit card required.
+			</p>
+			<a
+				href="/"
+				class="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mr-2 mb-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white focus:ring-4 focus:outline-none"
+				>Free trial for 30 days</a
+			>
+		</Cta>
 	</Section>
 </main>

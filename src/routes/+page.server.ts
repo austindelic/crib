@@ -1,4 +1,3 @@
-// routes/+page.server.ts
 import { fail, redirect } from '@sveltejs/kit';
 import { invalidateSession } from '$lib/server/auth/session';
 import { deleteSessionTokenCookie } from '$lib/server/auth/cookies';
