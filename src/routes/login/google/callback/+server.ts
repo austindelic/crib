@@ -1,5 +1,5 @@
 // routes/login/google/callback/+server.ts
-import { generateSessionToken, createSessionData } from '$lib/server/auth/session';
+import { generateSessionToken, createSession } from '$lib/server/auth/session';
 import { setSessionTokenCookie } from '$lib/server/auth/cookies';
 import { createUser, getUserFromGoogleId } from '$lib/server/db/queries/user';
 import { google } from '$lib/server/auth/oauth';
@@ -42,7 +42,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 	if (existingUser !== null) {
 		const sessionToken = generateSessionToken();
-		const session = await createSessionData(sessionToken, existingUser.id!);
+		const session = await createSession(sessionToken, existingUser.id!);
 		setSessionTokenCookie(event, sessionToken, session.expires_at!);
 		return new Response(null, {
 			status: 302,
@@ -59,7 +59,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	} as UserDraft);
 
 	const sessionToken = generateSessionToken();
-	const session = await createSessionData(sessionToken, user!.id!);
+	const session = await createSession(sessionToken, user!.id!);
 	setSessionTokenCookie(event, sessionToken, session.expires_at!);
 	return new Response(null, {
 		status: 302,

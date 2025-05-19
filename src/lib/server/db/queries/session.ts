@@ -3,7 +3,7 @@ import { db } from '../index';
 import { sessionTable, userTable } from '../schema';
 import type { SessionNullable, Session } from '../types';
 
-export async function createSession(session_data: Session): Promise<SessionNullable | null> {
+export async function createSessionStrict(session_data: Session): Promise<SessionNullable | null> {
 	const [session] = await db.insert(sessionTable).values(session_data).returning();
 	return session ?? null;
 }
