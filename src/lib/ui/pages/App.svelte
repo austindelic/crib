@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { User } from '$lib/server/types';
+	import type { User } from '$lib/schema-types';
 	import Sidebar from '$lib/ui/components/Sidebar.svelte';
 	let { user, children } = $props<{ user: User; children: Snippet }>();
 </script>

@@ -2,7 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema } from './schema';
+import { schema } from '../../../../lib/schemas/create_house.schema';
 import type { HouseDraft } from '$lib/server/db/types';
 import { createHouse } from '$lib/server/db/queries/house';
 export const load: PageServerLoad = async () => {

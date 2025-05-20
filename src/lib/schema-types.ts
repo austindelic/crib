@@ -1,5 +1,5 @@
 import type { InferSelectModel } from 'drizzle-orm';
-import * as schema from './schema';
+import * as schema from '$server/db/schema';
 
 // Utility: All fields nullable
 type Nullable<T> = { [P in keyof T]: T[P] | null };

@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { invalidateSession } from '$lib/server/auth/session';
 import { deleteSessionTokenCookie } from '$lib/server/auth/cookies';
-import type { User } from '$lib/server/db/types';
+import type { User } from '$lib/schema-types';
 
 import type { Actions, PageServerLoad } from './$types';
 

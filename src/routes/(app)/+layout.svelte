@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import Sidebar from '$lib/ui/components/Sidebar.svelte';
 	import '../../app.css';
-	import type { User } from '$lib/server/types';
+	import type { User } from '$lib/schema-types';
 	const { children, data } = $props<{ children: Snippet; data: { user: User } }>();
 	const { user } = data;
 </script>

@@ -2,7 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema } from './schema';
+import { schema } from '../../../../../lib/schemas/use_join_code.schema';
 import { selectHouseFromJoinCode } from '$lib/server/db/queries/house_join_code';
 import { createHouseUser } from '$lib/server/db/queries/house_users';
 import type { HouseUserDraft } from '$lib/server/db/types';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, DarkMode } from 'flowbite-svelte';
-	import type { User } from '$lib/server/types';
+	import type { User } from '$lib/schema-types';
 	import Avatar from './Avatar.svelte';
 	import LoginModal from '../modals/Login.svelte';
 	const { user } = $props<{ user: User | null }>();
