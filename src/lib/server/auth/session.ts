@@ -1,14 +1,14 @@
 import { sessionTable } from '../db/schema';
-import type { UserStrict, SessionStrict } from '../db/types';
+import type { User, Session } from '$schema_types';
 import { eq } from 'drizzle-orm';
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { db } from '../db/index';
 import {
 	createSessionStrict,
-	selectSessionWithUser,
+	selectSessionFromIdWithUser,
 	updateSessionExpirydate,
-	deleteSession
+	deleteSessionFromId
 } from '../db/queries/session';
 
 export function generateSessionToken(): string {
@@ -18,9 +18,9 @@ export function generateSessionToken(): string {
 	return token;
 }
 
-export async function createSession(token: string, user_id: string): Promise<SessionStrict> {
+export async function createSession(token: string, user_id: string): Promise<Session> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	const session: SessionStrict = {
+	const session: Session = {
 		id: sessionId,
 		user_id,
 		expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
@@ -31,13 +31,13 @@ export async function createSession(token: string, user_id: string): Promise<Ses
 
 export async function validateSessionToken(token: string): Promise<SessionValidationResult> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	const result = await selectSessionWithUser(sessionId);
+	const result = await selectSessionFromIdWithUser(sessionId);
 	if (result.length < 1) {
 		return { session: null, user: null };
 	}
 	const { user, session } = result[0];
 	if (Date.now() >= session.expires_at.getTime()) {
-		await deleteSession(session.id);
+		await deleteSessionFromId(session.id);
 		return { session: null, user: null };
 	}
 	if (Date.now() >= session.expires_at.getTime() - 1000 * 60 * 60 * 24 * 15) {
@@ -56,5 +56,5 @@ export async function invalidateAllSessions(userId: string): Promise<void> {
 }
 
 export type SessionValidationResult =
-	| { session: SessionStrict; user: UserStrict }
+	| { session: Session; user: User }
 	| { session: null; user: null };

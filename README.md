@@ -145,9 +145,17 @@ To get a local copy up and running, follow these steps:
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+- Update Drizzle Table Schema:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+  ```sh
+  npx drizzle-kit push
+  ```
+
+- See `scripts/seed-tools.ts` for database seeding.
+  Example:
+  ```sh
+  bun .\scripts\seed-tools.ts r
+  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -191,7 +199,7 @@ Don't forget to give the project a star! Thanks again!
 
 ## License
 
-Distributed under the project_license. See `LICENSE.txt` for more information.
+Distributed under the Creative Commons Attribution-NonCommercial 4.0 International License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

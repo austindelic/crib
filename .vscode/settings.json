@@ -2,5 +2,9 @@
 	"todo-tree.tree.showBadges": true,
 	"files.associations": {
 		"*.css": "tailwindcss"
-	}
+	},
+	"eslint.validate": ["javascript", "typescript", "svelte"],
+	"eslint.enable": true,
+	"eslint.run": "onType",
+	"editor.defaultFormatter": "esbenp.prettier-vscode"
 }

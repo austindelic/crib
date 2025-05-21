@@ -1,8 +1,12 @@
-import { pgTable, text, uuid, timestamp, integer } from 'drizzle-orm/pg-core';
+import { pgTable, text, uuid, timestamp, integer, pgEnum, date } from 'drizzle-orm/pg-core';
+
+export const avatar_providers = pgEnum('avatar_provider', ['github', 'google']);
 
 const baseFields = {
 	id: uuid('id').defaultRandom().primaryKey(),
-	createdAt: timestamp('created_at').defaultNow()
+
+	created_at: timestamp('created_at').defaultNow(),
+	last_updated: timestamp('last_updated').defaultNow()
 };
 
 export const userTable = pgTable('user', {
@@ -13,17 +17,21 @@ export const userTable = pgTable('user', {
 	github_id: integer('github_id'),
 	google_id: text('google_id'),
 	email: text('email'),
-	age: integer('age'),
-	phone_number: text('phone_number')
+	dob: date('dob'),
+	phone_number: text('phone_number'),
+	avatar_provider: avatar_providers()
 });
 
 export const houseTable = pgTable('house', {
 	...baseFields,
 
-	name: text('name').notNull()
+	name: text('name').notNull(),
+	user_id: uuid('user_id')
+		.references(() => userTable.id)
+		.notNull()
 });
 
-export const houseUsersTable = pgTable('house_users', {
+export const houseUserTable = pgTable('house_user', {
 	...baseFields,
 
 	user_id: uuid('user_id')
@@ -32,6 +40,22 @@ export const houseUsersTable = pgTable('house_users', {
 	house_id: uuid('house_id')
 		.references(() => houseTable.id)
 		.notNull()
+});
+
+export const houseJoinCodeTable = pgTable('house_join_code', {
+	id: text('id').primaryKey(),
+	house_id: uuid('house_id')
+		.references(() => houseTable.id)
+		.notNull(),
+	user_id: uuid('user_id')
+		.references(() => userTable.id)
+		.notNull(),
+	expires_at: timestamp('expires_at', {
+		withTimezone: true,
+		mode: 'date'
+	}).notNull(),
+	created_at: timestamp('created_at').defaultNow(),
+	last_updated: timestamp('last_updated').defaultNow()
 });
 
 //Auth tables
