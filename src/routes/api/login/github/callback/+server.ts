@@ -1,19 +1,17 @@
-// routes/login/google/callback/+server.ts
 import { generateSessionToken, createSession } from '$lib/server/auth/session';
 import { setSessionTokenCookie } from '$lib/server/auth/cookies';
-import { createUser, getUserFromGoogleId } from '$lib/server/db/queries/user';
-import { google } from '$lib/server/auth/oauth';
-import { decodeIdToken } from 'arctic';
-import type { UserDraft } from '$lib/server/db/types';
+import { github } from '$lib/server/auth/oauth';
+import { getUserFromGitHubId, createUser } from '$lib/server/db/queries/user';
+
 import type { RequestEvent } from '@sveltejs/kit';
 import type { OAuth2Tokens } from 'arctic';
+import type { UserDraft } from '$schema_types';
 
 export async function GET(event: RequestEvent): Promise<Response> {
 	const code = event.url.searchParams.get('code');
 	const state = event.url.searchParams.get('state');
-	const storedState = event.cookies.get('google_oauth_state') ?? null;
-	const codeVerifier = event.cookies.get('google_code_verifier') ?? null;
-	if (code === null || state === null || storedState === null || codeVerifier === null) {
+	const storedState = event.cookies.get('github_oauth_state') ?? null;
+	if (code === null || state === null || storedState === null) {
 		return new Response(null, {
 			status: 400
 		});
@@ -26,7 +24,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
 	let tokens: OAuth2Tokens;
 	try {
-		tokens = await google.validateAuthorizationCode(code, codeVerifier);
+		tokens = await github.validateAuthorizationCode(code);
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (e) {
 		// Invalid code or client credentials
@@ -34,13 +32,18 @@ export async function GET(event: RequestEvent): Promise<Response> {
 			status: 400
 		});
 	}
-	const claims = decodeIdToken(tokens.idToken()) as { sub: string; name?: string };
-	const googleUserId = claims.sub;
-	const username = claims.name;
+	const githubUserResponse = await fetch('https://api.github.com/user', {
+		headers: {
+			Authorization: `Bearer ${tokens.accessToken()}`
+		}
+	});
+	const githubUser = await githubUserResponse.json();
+	const githubUserId = githubUser.id;
+	const githubUsername = githubUser.login;
 
-	const existingUser = await getUserFromGoogleId(googleUserId);
+	const existingUser = await getUserFromGitHubId(githubUserId);
 
-	if (existingUser !== null) {
+	if (existingUser) {
 		const sessionToken = generateSessionToken();
 		const session = await createSession(sessionToken, existingUser.id!);
 		setSessionTokenCookie(event, sessionToken, session.expires_at!);
@@ -53,14 +56,15 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	}
 
 	const user = await createUser({
-		username: username,
-		google_id: googleUserId,
-		avatar_provider: 'google'
+		github_id: githubUserId,
+		username: githubUsername,
+		avatar_provider: 'github'
 	} as UserDraft);
 
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, user!.id!);
 	setSessionTokenCookie(event, sessionToken, session.expires_at!);
+
 	return new Response(null, {
 		status: 302,
 		headers: {

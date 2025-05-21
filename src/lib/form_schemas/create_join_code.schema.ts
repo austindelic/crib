@@ -1,5 +1,5 @@
 import { z } from 'zod';
 
 export const schema = z.object({
-	join_code: z.string()
+	house_id: z.string()
 });

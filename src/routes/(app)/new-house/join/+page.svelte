@@ -2,7 +2,7 @@
 	import { superForm } from 'sveltekit-superforms';
 	import { Field, Control, Label, FieldErrors } from 'formsnap';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { schema } from '../../../../../lib/schemas/use_join_code.schema.js';
+	import { schema } from '$lib/form_schemas/join_code.schema.js';
 	let { data } = $props();
 
 	const form = superForm(data.form, {

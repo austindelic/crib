@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { eq } from 'drizzle-orm';
 import { db } from '../index';
 import { houseJoinCodeTable, houseTable } from '../schema';
-import type { HouseJoinCodeDraft, HouseJoinCode, House } from '../types';
+import type { HouseJoinCodeDraft, HouseJoinCode, House } from '$schema_types';
 
 export async function selectHouseFromJoinCode(join_code_data: string): Promise<House | null> {
 	const [house_join_code] = await db

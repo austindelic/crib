@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { Section, HeroHeader } from 'flowbite-svelte-blocks';
+	import type { House, User } from '$schema_types';
+	import { HeroHeader } from 'flowbite-svelte-blocks';
+	let text = $state('Select a House to get started.');
+	const { data }: { data: { user: User; houses: House[] | null } } = $props();
+	const { user, houses } = data;
+	if (!houses) {
+		text = 'need to join/create house';
+	}
 </script>
 
-<p>This is a test</p>
-<Section name="logos">
-	<HeroHeader>
-		{#snippet h2()}Select a House to get started.{/snippet}
-	</HeroHeader>
-</Section>
+<HeroHeader>
+	{#snippet h2()}
+		{text + ' ' + user.name}
+	{/snippet}
+</HeroHeader>

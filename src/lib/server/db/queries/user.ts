@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../index';
 import { userTable } from '../schema';
-import type { UserNullable, UserDraft, User } from '../types';
+import type { UserNullable, UserDraft, User } from '$schema_types';
 
 const DISALLOW_NEW_USERS = false;
 

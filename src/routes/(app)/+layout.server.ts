@@ -1,0 +1,12 @@
+import type { House, User } from '$schema_types';
+import { getHousesFromUserId } from '$server/db/queries/house_users';
+import type { LayoutLoad } from './$types';
+
+export const load = (async (event) => {
+	const user: User = event.locals.user;
+	const houses: House[] | null = await getHousesFromUserId(user.id);
+	return {
+		user,
+		houses
+	};
+}) satisfies LayoutLoad;

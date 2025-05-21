@@ -8,15 +8,12 @@
 		SidebarBrand,
 		SidebarDropdownWrapper
 	} from 'flowbite-svelte';
-	import { User, House } from '@lucide/svelte';
+	import { House as HouseIcon, Plus } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import Avatar from './Avatar.svelte';
-
-	let { user, children } = $props<{
-		user: User;
-		children?: Snippet;
-	}>();
+	import type { House, User } from '$schema_types';
+	let { user, houses, children }: { user: User; children?: Snippet; houses: House[] } = $props();
 
 	let activeUrl = $state(page.url.pathname);
 	const demoSidebarUi = uiHelpers();
@@ -47,19 +44,30 @@
 					>crib.</span
 				>
 			</SidebarBrand>
-			<SidebarDropdownWrapper label="Austin's House" btnClass="p-2">
+
+			{#each houses as house (house.id)}
+				<SidebarDropdownWrapper label={house.name} btnClass="p-2">
+					{#snippet icon()}
+						<HouseIcon
+							class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+						/>
+					{/snippet}
+					<SidebarItem label="Dashboard" href="/{house.id}" />
+					<SidebarItem label="Issues" href="/{house.id}/issues" />
+					<SidebarItem label="Chores" href="/{house.id}/chores" />
+					<SidebarItem label="Share" href="/{house.id}/share" />
+				</SidebarDropdownWrapper>
+			{/each}
+			<SidebarItem label="New House" href="new_house">
 				{#snippet icon()}
-					<House
+					<Plus
 						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
 					/>
 				{/snippet}
-				<SidebarItem label="Dashboard" href="/docs/components/sidebar" />
-				<SidebarItem label="Issues" />
-				<SidebarItem label="Chores" />
-			</SidebarDropdownWrapper>
+			</SidebarItem>
 		</SidebarGroup>
 		<SidebarGroup border>
-			<SidebarItem label="">
+			<SidebarItem label="Account">
 				{#snippet icon()}
 					<Avatar {user} />
 				{/snippet}

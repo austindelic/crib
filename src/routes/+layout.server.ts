@@ -22,7 +22,6 @@ function getRoute(route_id: string | null): string {
 
 function safeRedirect(route: string | null, redirect_route: string, status_code = 302) {
 	if (route != redirect_route) {
-		console.log(route, redirect_route);
 		throw redirect(status_code, redirect_route);
 	}
 }

@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../index';
 import { houseTable, houseUserTable } from '../schema';
-import type { HouseNullable, HouseDraft, HouseUserDraft } from '../types';
+import type { HouseNullable, HouseDraft, HouseUserDraft } from '$schema_types';
 
 export async function getHouseFromId(id: string): Promise<HouseNullable | null> {
 	const [house] = await db.select().from(houseTable).where(eq(houseTable.id, id));

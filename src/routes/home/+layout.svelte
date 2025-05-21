@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import Navbar from '$lib/ui/components/Navbar.svelte';
-	import type { User } from '$lib/schema-types';
+	import type { User } from '$lib/schema_types';
 	import Footer from '$lib/ui/components/Footer.svelte';
-	import '../../app.css';
-	let { children, data } = $props<{ data: { user: User | null }; children: Snippet }>();
+	import '$css';
+	let { children, data }: { data: { user: User | null }; children: Snippet } = $props();
 	let user = data.user;
 </script>
 

@@ -3,10 +3,10 @@
 	import { Section } from 'flowbite-svelte-blocks';
 	import { Field, Control, FieldErrors } from 'formsnap';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { schema } from '$lib/schemas/onboarding.schema';
+	import { schema } from '$lib/form_schemas/onboarding.schema';
 	import { DateInput } from 'date-picker-svelte';
 	import { FloatingLabelInput, Input, Label, Button, Modal } from 'flowbite-svelte';
-	let { data } = $props();
+	let { data }: { form: any; is_open:  } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema)
