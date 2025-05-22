@@ -5,7 +5,6 @@
 @source './src/**/*.{html,js,svelte,ts,md}';
 @source '../node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}';
 @source '../node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}';
-@source '../node_modules/flowbite-svelte-blocks/**/*.{html,js,svelte,ts}';
 
 @plugin 'flowbite/plugin';
 

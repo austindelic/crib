@@ -5,10 +5,10 @@
 	import { schema } from '$lib/form_schemas/create_join_code.schema';
 	import { Label, Button, Modal, Select } from 'flowbite-svelte';
 	import type { House, HouseUser, User } from '$schema_types';
-	let {
-		data
-	}: { data: { user: User; form: any; houses: { houseUser: HouseUser; house: House }[] | null } } =
-		$props();
+	interface Props {
+		data: { user: User; form: any; houses: { houseUser: HouseUser; house: House }[] | null };
+	}
+	let { data }: Props = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(schema)
