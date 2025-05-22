@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Section } from 'flowbite-svelte-blocks';
 	import { Button, Modal } from 'flowbite-svelte';
 	import { Plus } from '@lucide/svelte';
 	let { is_open }: { is_open: boolean } = $props();
@@ -8,8 +7,7 @@
 	};
 </script>
 
-<Section sectionClass="h-96">
-	<Modal title="Add Product" bind:open={is_open} autoclose>
+<Modal title="Add Product" bind:open={is_open} autoclose>
 		<form onsubmit={handleSubmit}>
 			<div class="mb-4 grid gap-4 sm:grid-cols-2">
 				<Button href="/api/login/google" class="w-52">
@@ -23,4 +21,3 @@
 			</div>
 		</form>
 	</Modal>
-</Section>
