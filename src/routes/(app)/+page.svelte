@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { House, User } from '$schema_types';
+	import type { PageData } from './$types';
 	let text = $state('Select a House to get started.');
-	const { data }: { data: { user: User; houses: House[] | null } } = $props();
+	const { data }: { data: PageData } = $props();
 	const { user, houses } = data;
 	if (!houses) {
 		text = 'need to join/create house';
 	}
 </script>
-<p>{text + ' ' + user.name}</p>
 
+<p>{text + ' ' + user.name}</p>

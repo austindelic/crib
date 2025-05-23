@@ -7,17 +7,17 @@
 	};
 </script>
 
-<Modal title="Add Product" bind:open={is_open} autoclose>
-		<form onsubmit={handleSubmit}>
-			<div class="mb-4 grid gap-4 sm:grid-cols-2">
-				<Button href="/api/login/google" class="w-52">
-					<Plus />
-					Login with Google
-				</Button>
-				<Button href="/api/login/github" class="w-52">
-					<Plus />
-					Login with Github
-				</Button>
-			</div>
-		</form>
-	</Modal>
+<Modal title="Login" bind:open={is_open} autoclose>
+	<form onsubmit={handleSubmit}>
+		<div class="mb-4 grid gap-4 sm:grid-cols-2">
+			<Button href="/api/login/google" class="w-52">
+				<Plus />
+				Login with Google
+			</Button>
+			<Button href="/api/login/github" class="w-52">
+				<Plus />
+				Login with Github
+			</Button>
+		</div>
+	</form>
+</Modal>

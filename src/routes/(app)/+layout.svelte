@@ -4,7 +4,7 @@
 	import '$css';
 	import type { House, User } from '$lib/schema_types';
 	const { children, data }: { children: Snippet; data: { user: User; houses: House[] } } = $props();
-	const { user, houses } = data;
+	const { user, houses } = $derived(data);
 </script>
 
 <Sidebar {user} {houses}>

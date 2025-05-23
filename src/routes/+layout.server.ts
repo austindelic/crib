@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
+import { getRoute, safeRedirect } from '$server/utils';
 
 const PUBLIC_ROUTES = ['/home', '/home/pricing', '/home/about', '/home/contact'];
 const TEST_ROUTES = ['/test'];
@@ -15,19 +16,6 @@ function isPublicRoute(route_id: string | null): boolean {
 function isTestRoute(route_id: string | null): boolean {
 	return CONFIG.testMode && TEST_ROUTES.includes(route_id ?? '');
 }
-
-function getRoute(route_id: string | null): string {
-	return (route_id ?? '')
-		.replace(/\(.*?\)/g, '') // remove groups
-		.replace(/\/{2,}/g, '/'); // replace double slashes with single
-}
-
-function safeRedirect(route: string | null, redirect_route: string, status_code = 302) {
-	if (route != redirect_route) {
-		throw redirect(status_code, redirect_route);
-	}
-}
-
 export const load = (async ({ locals, route }) => {
 	const user = locals.user;
 	const current_route = getRoute(route.id);
