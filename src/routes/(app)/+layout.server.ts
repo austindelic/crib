@@ -6,8 +6,12 @@ import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ locals, route }) => {
 	const user: User = locals.user;
+	if (!user) {
+		redirect(302, '/');
+	}
 	const houses: House[] | null = await getHousesFromUserId(user.id);
 	const current_route = getRoute(route.id);
+
 	if (!user.dob) {
 		safeRedirect(current_route, '/onboarding');
 		// internal logic to force onboarding.
