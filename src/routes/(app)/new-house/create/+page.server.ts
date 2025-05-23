@@ -29,8 +29,8 @@ export const actions: Actions = {
 			name: form.data.house_name,
 			user_id: event.locals.user.id
 		} as HouseDraft;
-		const updated_user = await createHouse(house_data);
-		if (updated_user) {
+		const house = await createHouse(house_data);
+		if (house) {
 			redirect(302, '/');
 		}
 	}

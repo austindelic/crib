@@ -17,7 +17,9 @@ function isTestRoute(route_id: string | null): boolean {
 }
 
 function getRoute(route_id: string | null): string {
-	return (route_id ?? '').replace(/\(.*?\)/g, ''); // removes all (group) parts
+	return (route_id ?? '')
+		.replace(/\(.*?\)/g, '') // remove groups
+		.replace(/\/{2,}/g, '/'); // replace double slashes with single
 }
 
 function safeRedirect(route: string | null, redirect_route: string, status_code = 302) {
@@ -29,11 +31,10 @@ function safeRedirect(route: string | null, redirect_route: string, status_code 
 export const load = (async ({ locals, route }) => {
 	const user = locals.user;
 	const current_route = getRoute(route.id);
-
 	if (user) {
 		// there is a user
 		if (!user.dob) {
-			safeRedirect(current_route, '/');
+			safeRedirect(current_route, '/onboarding');
 			// internal logic to force onboarding.
 		}
 		return { user };

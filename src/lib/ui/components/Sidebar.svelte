@@ -58,7 +58,7 @@
 					<SidebarItem label="Share" href="/{house.id}/share" />
 				</SidebarDropdownWrapper>
 			{/each}
-			<SidebarItem label="New House" href="new_house">
+			<SidebarItem label="New House" href="new-house">
 				{#snippet icon()}
 					<Plus
 						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
@@ -74,8 +74,8 @@
 			</SidebarItem>
 		</SidebarGroup>
 	</Sidebar>
-	<div class="flex-1 overflow-auto p-4">
-		<div class="rounded-lg border-2 border-dashed border-gray-200 p-4 dark:border-gray-700">
+	<div class="h-full w-full overflow-auto px-4 md:mt-5 md:mr-5 md:mb-5 md:ml-64">
+		<div class="rounded-lg border-2 border-solid border-gray-200 p-4 dark:border-gray-700">
 			{#if children}
 				{@render children()}
 			{/if}

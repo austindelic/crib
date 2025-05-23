@@ -10,7 +10,8 @@ const config = {
 			$schemas: 'src/lib/schemas',
 			$server: 'src/lib/server',
 			$ui: 'src/lib/ui',
-			$schema_types: 'src/lib/schema_types.ts'
+			$schema_types: 'src/lib/schema_types.ts',
+			$env: 'src/lib/server/env.ts'
 		}
 	}
 	/*
