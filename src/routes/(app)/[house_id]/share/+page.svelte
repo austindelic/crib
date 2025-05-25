@@ -12,7 +12,7 @@
 	<input type="hidden" name="house_id" value={data.house.id} />
 	<Button type="submit" class="w-52">
 		<Plus />
-		Generate Code
+		Generate Code!
 	</Button>
 </form>
 
