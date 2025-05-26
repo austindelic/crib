@@ -13,11 +13,9 @@ const config = {
 			$schema_types: 'src/lib/schema_types.ts',
 			$env: 'src/lib/server/env.ts'
 		}
-	}
-	/*
+	},
 	compilerOptions: {
-		runes: true
+		// runes: true
 	}
-		*/
 };
 export default config;

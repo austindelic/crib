@@ -54,13 +54,14 @@
 							/>
 						{/snippet}
 						<SidebarItem label="Dashboard" href="/{house.id}" />
+						<!-- <SidebarItem label="Chat" href="/{house.id}/chat" />  -->
 						<SidebarItem label="Issues" href="/{house.id}/issues" />
 						<SidebarItem label="Chores" href="/{house.id}/chores" />
 						<SidebarItem label="Share" href="/{house.id}/share" />
 					</SidebarDropdownWrapper>
 				{/each}
 			{/if}
-			<SidebarItem label="New House" href="new-house">
+			<SidebarItem label="New House" href="/new-house">
 				{#snippet icon()}
 					<Plus
 						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"

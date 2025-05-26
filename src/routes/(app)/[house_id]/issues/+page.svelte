@@ -4,4 +4,4 @@
 	let { data }: PageProps = $props();
 </script>
 
-<p>share</p>
+<p>issues</p>
