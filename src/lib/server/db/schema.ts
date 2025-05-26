@@ -28,7 +28,8 @@ export const houseTable = pgTable('house', {
 	name: text('name').notNull(),
 	user_id: uuid('user_id')
 		.references(() => userTable.id)
-		.notNull()
+		.notNull(),
+	page_md: text('page_md')
 });
 
 export const houseUserTable = pgTable('house_user', {

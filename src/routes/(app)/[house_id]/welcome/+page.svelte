@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { marked } from 'marked';
-	let post: { title: string; content: string } = $props();
-
-	const html = marked.parse(post.content);
+	import 'highlight.js/styles/github-dark.css'; // or any other theme you like
+	import 'github-markdown-css/github-markdown.css'; // For overall Markdown styles
+	import type { PageProps } from './$types';
+	let { data }: PageProps = $props();
+	let { page_md } = $derived(data.house);
 </script>
 
-<h1>{post.title}</h1>
-
-<!-- Render as raw HTML -->
-<div class="markdown">
-	{@html html}
-</div>
+<main class="markdown-body">
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html page_md}
+</main>
