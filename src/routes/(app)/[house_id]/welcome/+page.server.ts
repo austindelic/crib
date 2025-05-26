@@ -3,14 +3,14 @@ import { renderHtmlSync } from 'cmark-gfm';
 import sanitizeHtml from 'sanitize-html';
 import hljs from 'highlight.js';
 import type { PageServerLoad } from './$types';
-
+import { JSDOM } from 'jsdom';
 export const load: PageServerLoad = async ({ parent }) => {
 	const { house }: { house: House } = await parent();
 	if (!house.page_md) {
 		return { html: null };
 	}
 
-	// Step 1: Parse Markdown to HTML
+	// Step 1: Parse Markdown to raw HTML
 	let html = renderHtmlSync(house.page_md, {
 		extensions: {
 			table: true,
@@ -22,18 +22,30 @@ export const load: PageServerLoad = async ({ parent }) => {
 		smart: true,
 		githubPreLang: true
 	});
-
+	console.log('before:', html);
 	// Step 2: Highlight code blocks
-	html = html.replace(
-		/<pre><code class="language-(.+?)">([\s\S]*?)<\/code><\/pre>/g,
-		(_, lang, code) => {
-			const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-			const highlighted = hljs.highlight(code, { language }).value;
-			return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>`;
-		}
-	);
+	const dom = new JSDOM(html);
+	const { document } = dom.window;
+	const codeBlocks = document.querySelectorAll('pre > code');
 
-	// Step 3: Sanitize the HTML
+	codeBlocks.forEach((block) => {
+		const className = block.className; // e.g., 'language-js'
+		const language = className?.replace('language-', '').trim();
+
+		if (language && hljs.getLanguage(language)) {
+			const highlighted = hljs.highlight(block.textContent || '', { language });
+			block.innerHTML = highlighted.value;
+			block.classList.add('hljs');
+		} else {
+			const highlighted = hljs.highlightAuto(block.textContent || '');
+			block.innerHTML = highlighted.value;
+			block.classList.add('hljs');
+		}
+	});
+
+	html = dom.serialize();
+
+	// Step 3: Sanitize HTML
 	html = sanitizeHtml(html, {
 		allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'pre', 'code']),
 		allowedAttributes: {
@@ -42,6 +54,6 @@ export const load: PageServerLoad = async ({ parent }) => {
 			pre: ['class']
 		}
 	});
-
+	console.log('after:', html);
 	return { html };
 };
