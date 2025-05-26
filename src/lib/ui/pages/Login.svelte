@@ -10,14 +10,16 @@
 	</p>
 
 	<h2 class="mb-4 text-2xl font-semibold text-gray-700">DEV SIGN IN</h2>
-	<div>
-		<a
-			href="/login/github"
-			class="inline-block rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white shadow transition hover:bg-gray-800"
-		>
-			Sign in with GitHub
-		</a>
-	</div>
+	<!--
+    <div>
+        <a
+            href="/login/github"
+            class="inline-block rounded-lg bg-gray-900 px-6 py-3 font-semibold text-white shadow transition hover:bg-gray-800"
+        >
+            Sign in with GitHub
+        </a>
+    </div>
+    -->
 	<div>
 		<a
 			href="/login/google"
