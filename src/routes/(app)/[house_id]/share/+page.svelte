@@ -7,16 +7,10 @@
 
 	const { form, data }: PageProps = $props();
 	const { join_code, join_code_url } = $derived.by(() => {
-		let result: { join_code: string | null; join_code_url: string | null } = {
-			join_code: null,
-			join_code_url: null
+		return {
+			join_code: form?.join_code,
+			join_code_url: form?.join_code_url
 		};
-		if (!form) {
-			return result;
-		}
-		result.join_code = form.join_code;
-		result.join_code_url = form.join_code_url;
-		return result;
 	});
 	let join_code_url_qr_code: string | null = $state(null);
 	$effect(() => {
