@@ -1,13 +1,5 @@
 <script lang="ts">
-	import {
-		Calendar,
-		TimeGrid,
-		ResourceTimeGrid,
-		ResourceTimeline,
-		DayGrid,
-		List,
-		Interaction
-	} from '@event-calendar/core';
+	import { Calendar, TimeGrid, DayGrid, List, Interaction } from '@event-calendar/core';
 
 	import '@event-calendar/core/index.css';
 
