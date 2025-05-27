@@ -8,10 +8,9 @@ import { error } from '@sveltejs/kit';
 import { env } from '$env';
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ locals, params }) => {
 		//create and new code.
-		const formData = await request.formData();
-		const house_id = formData.get('house_id') as string; //this is the mose MVP code i have ever seen.
+		const house_id = params.house_id; //this is the mose MVP code i have ever seen.
 		const user: User = locals.user;
 		const join_code_value = Math.random().toString(36).substring(2, 8).toUpperCase();
 		const expires_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);

@@ -5,7 +5,7 @@
 	import { enhance } from '$app/forms';
 	import QRCode from 'qrcode';
 
-	const { form, data }: PageProps = $props();
+	const { form }: PageProps = $props();
 	const { join_code, join_code_url } = $derived.by(() => {
 		return {
 			join_code: form?.join_code,
@@ -24,7 +24,6 @@
 </script>
 
 <form method="POST" use:enhance>
-	<input type="hidden" name="house_id" value={data.house.id} />
 	<Button type="submit" class="w-52">
 		<Plus />
 		Generate Code!

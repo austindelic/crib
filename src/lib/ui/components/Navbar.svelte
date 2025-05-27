@@ -14,9 +14,6 @@
 	import { Plus } from '@lucide/svelte';
 	const { user }: { user: User | null } = $props();
 	let is_open = $state(false);
-	const handleSubmit = () => {
-		alert('Form submited.');
-	};
 </script>
 
 <Navbar>
@@ -45,7 +42,7 @@
 </Navbar>
 
 <Modal title="Add Product" bind:open={is_open} autoclose>
-	<form onsubmit={handleSubmit}>
+	<form>
 		<div class="mb-4 grid gap-4 sm:grid-cols-2">
 			<Button href="/api/login/google" class="w-52">
 				<Plus />

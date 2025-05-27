@@ -1,5 +1,5 @@
 import type { House } from '$schema_types';
-import { mdToCleanHtml } from '$utils/md.utils';
+import { mdToCleanHtml } from '$utils/markdown.utils';
 import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ parent }) => {
 	const { house }: { house: House } = await parent();

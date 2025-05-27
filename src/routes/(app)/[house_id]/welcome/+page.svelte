@@ -2,11 +2,11 @@
 	import type { PageProps } from './$types';
 	import 'github-markdown-css/github-markdown-light.css';
 	import 'highlight.js/styles/github.css';
-	import MdRenderer from '$ui/components/MdRenderer.svelte';
+	import MdRenderer from '$ui/components/MarkdownRenderer.svelte';
 	let { data }: PageProps = $props();
 	const { clean_html } = $derived(data);
 </script>
 
 {#if clean_html}
-	<MdRenderer html={clean_html} />
+	<MdRenderer {clean_html} />
 {/if}
