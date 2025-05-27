@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import { getRoute, safeRedirect } from '$server/utils';
+import { getRoute, safeRedirect } from '$utils/routing.utils';
 
 const PUBLIC_ROUTES = ['/home', '/home/pricing', '/home/about', '/home/contact'];
 const TEST_ROUTES = ['/test'];

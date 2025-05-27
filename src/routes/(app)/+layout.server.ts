@@ -1,6 +1,6 @@
 import type { House, User } from '$schema_types';
 import { getHousesFromUserId } from '$server/db/queries/house_users';
-import { getRoute, safeRedirect } from '$server/utils';
+import { getRoute, safeRedirect } from '$utils/routing.utils';
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 

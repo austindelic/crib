@@ -2,11 +2,11 @@
 	import type { PageProps } from './$types';
 	import 'github-markdown-css/github-markdown-light.css';
 	import 'highlight.js/styles/github.css';
+	import MdRenderer from '$ui/components/MdRenderer.svelte';
 	let { data }: PageProps = $props();
-	const { html } = $derived(data);
+	const { clean_html } = $derived(data);
 </script>
 
-<div class="markdown-body">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html html}
-</div>
+{#if clean_html}
+	<MdRenderer html={clean_html} />
+{/if}
