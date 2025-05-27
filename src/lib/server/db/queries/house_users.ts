@@ -16,7 +16,6 @@ export async function isUserInHouse(user_id: string, house_id: string): Promise<
 		})
 		.from(houseUserTable)
 		.where(and(eq(houseUserTable.user_id, user_id), eq(houseUserTable.house_id, house_id)));
-	console.log(result);
 	return result.length > 0;
 }
 

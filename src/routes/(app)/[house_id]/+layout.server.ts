@@ -25,7 +25,6 @@ export const load = (async ({ params, locals, route }) => {
 		throw error(404, 'House not found');
 	}
 	const is_valid_house_member = await isUserInHouse(user.id, house.id);
-	console.log(is_valid_house_member);
 	if (!is_valid_house_member) {
 		redirect(302, '/');
 	}
