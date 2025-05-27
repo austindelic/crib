@@ -22,36 +22,38 @@ export const load: PageServerLoad = async ({ parent }) => {
 		smart: true,
 		githubPreLang: true
 	});
-	console.log('before:', html);
+
 	// Step 2: Highlight code blocks
 	const dom = new JSDOM(html);
+	console.log('before:', html);
 	const { document } = dom.window;
 	const codeBlocks = document.querySelectorAll('pre > code');
 
 	codeBlocks.forEach((block) => {
-		const className = block.className; // e.g., 'language-js'
-		const language = className?.replace('language-', '').trim();
+		const pre = block.parentElement;
+		const lang = pre?.getAttribute('lang')?.trim();
 
-		if (language && hljs.getLanguage(language)) {
-			const highlighted = hljs.highlight(block.textContent || '', { language });
+		if (lang && hljs.getLanguage(lang)) {
+			const highlighted = hljs.highlight(block.textContent || '', { language: lang });
 			block.innerHTML = highlighted.value;
-			block.classList.add('hljs');
+			block.classList.add('hljs', `language-${lang}`);
 		} else {
 			const highlighted = hljs.highlightAuto(block.textContent || '');
 			block.innerHTML = highlighted.value;
-			block.classList.add('hljs');
+			block.classList.add('hljs', `language-${highlighted.language || 'plaintext'}`);
 		}
 	});
 
 	html = dom.serialize();
-
+	console.log('after:', html);
 	// Step 3: Sanitize HTML
 	html = sanitizeHtml(html, {
-		allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'pre', 'code']),
+		allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'pre', 'code', 'span']),
 		allowedAttributes: {
 			...sanitizeHtml.defaults.allowedAttributes,
 			code: ['class'],
-			pre: ['class']
+			pre: ['class'],
+			span: ['class']
 		}
 	});
 	console.log('after:', html);
