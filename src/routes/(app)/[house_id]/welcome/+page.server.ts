@@ -45,17 +45,26 @@ export const load: PageServerLoad = async ({ parent }) => {
 	});
 
 	html = dom.serialize();
-	console.log('after:', html);
 	// Step 3: Sanitize HTML
 	html = sanitizeHtml(html, {
 		allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'pre', 'code', 'span']),
 		allowedAttributes: {
 			...sanitizeHtml.defaults.allowedAttributes,
+			a: ['href', 'name', 'target', 'rel'],
+			img: ['src', 'alt', 'title', 'width', 'height'],
 			code: ['class'],
 			pre: ['class'],
 			span: ['class']
+		},
+		allowedSchemes: ['http', 'https', 'mailto'],
+		allowedSchemesByTag: {
+			img: ['http', 'https'],
+			a: ['http', 'https', 'mailto']
+		},
+		allowProtocolRelative: false, // Don't allow //cdn.example.com, must be https://
+		transformTags: {
+			a: sanitizeHtml.simpleTransform('a', { rel: 'noopener noreferrer', target: '_blank' })
 		}
 	});
-	console.log('after:', html);
 	return { html };
 };
