@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from '../$types';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema } from '../../../lib/form_schemas/onboarding.schema';
+import { schema } from '$lib/form_schemas/onboarding.schema';
 import { updateUser } from '$lib/server/db/queries/user';
 import type { User } from '$schema_types';
 export const load: PageServerLoad = async () => {

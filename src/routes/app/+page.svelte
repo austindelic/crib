@@ -1,8 +1,39 @@
 <script>
+	import Hero3DText from '$ui/threlte/Hero3DText.svelte';
 	import { Canvas } from '@threlte/core';
-	import Scene from '$ui/threlte/Scene.svelte';
+	let text = 'crib.';
+	let bevelEnabled = false;
+	let bevelOffset = 0;
+	let bevelSegments = 20;
+	let bevelSize = 0.2;
+	let bevelThickness = 0.1;
+	let curveSegments = 12;
+	let depth = 1;
+	let size = 10;
+	let smooth = 0.1;
 </script>
 
-<Canvas>
-	<Scene />
-</Canvas>
+<div>
+	<Canvas>
+		<Hero3DText
+			{text}
+			{bevelEnabled}
+			{bevelOffset}
+			{bevelSegments}
+			{bevelSize}
+			{bevelThickness}
+			{curveSegments}
+			{depth}
+			{size}
+			{smooth}
+		/>
+	</Canvas>
+</div>
+<div class="hero-text">
+	<h1>Welcome to the Hero Section</h1>
+	<p>Experience stunning 3D text and interactive visuals powered by Threlte.</p>
+</div>
+<div class="hero-text">
+	<h1>Welcome to the Hero Section</h1>
+	<p>Experience stunning 3D text and interactive visuals powered by Threlte.</p>
+</div>

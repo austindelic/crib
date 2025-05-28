@@ -1,10 +1,10 @@
 <script lang="ts">
+	import type { LayoutData } from './$types';
 	import type { Snippet } from 'svelte';
-	import Sidebar from '$lib/ui/components/Sidebar.svelte';
-	import '../../app.css';
-	import type { House, User } from '$lib/schema_types';
-	const { children, data }: { children: Snippet; data: { user: User; houses: House[] } } = $props();
-	const { user, houses } = data;
+	import Sidebar from '$ui/components/Sidebar.svelte';
+	import '$css';
+	const { children, data }: { children: Snippet; data: LayoutData } = $props();
+	const { user, houses } = $derived(data);
 </script>
 
 <Sidebar {user} {houses}>

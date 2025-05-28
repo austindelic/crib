@@ -1,7 +1,11 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	let { data }: { data: PageData } = $props();
+	import { throwError } from '$utils/error.utils';
+	import type { PageProps } from './$types';
+	let { data }: PageProps = $props();
+	const { house } = data;
+	if (!house) {
+		throwError('HOUSE_NOT_FOUND');
+	}
 </script>
 
-<p>this is a test</p>
+<p>this is a test {house.name}</p>

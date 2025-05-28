@@ -2,11 +2,14 @@ import { pgTable, text, uuid, timestamp, integer, pgEnum, date } from 'drizzle-o
 
 export const avatar_providers = pgEnum('avatar_provider', ['github', 'google']);
 
-const baseFields = {
-	id: uuid('id').defaultRandom().primaryKey(),
-
+const timestamps = {
 	created_at: timestamp('created_at').defaultNow(),
 	last_updated: timestamp('last_updated').defaultNow()
+};
+
+const baseFields = {
+	id: uuid('id').defaultRandom().primaryKey(),
+	...timestamps
 };
 
 export const userTable = pgTable('user', {
@@ -28,7 +31,8 @@ export const houseTable = pgTable('house', {
 	name: text('name').notNull(),
 	user_id: uuid('user_id')
 		.references(() => userTable.id)
-		.notNull()
+		.notNull(),
+	page_md: text('page_md')
 });
 
 export const houseUserTable = pgTable('house_user', {
@@ -54,11 +58,47 @@ export const houseJoinCodeTable = pgTable('house_join_code', {
 		withTimezone: true,
 		mode: 'date'
 	}).notNull(),
-	created_at: timestamp('created_at').defaultNow(),
-	last_updated: timestamp('last_updated').defaultNow()
+	...timestamps
 });
 
-//Auth tables
+export const houseIssueTable = pgTable('house_issues', {
+	...baseFields,
+
+	user_id: uuid('user_id')
+		.references(() => userTable.id)
+		.notNull(),
+
+	house_id: uuid('house_id')
+		.references(() => houseTable.id)
+		.notNull(),
+	issue: text('issue').notNull()
+});
+
+export const houseChoreTable = pgTable('house_chores', {
+	...baseFields,
+
+	user_id: uuid('user_id')
+		.references(() => userTable.id)
+		.notNull(),
+
+	house_id: uuid('house_id')
+		.references(() => houseTable.id)
+		.notNull(),
+	chore: text('chore').notNull()
+});
+
+export const houseChatTable = pgTable('house_chat', {
+	...baseFields,
+
+	user_id: uuid('user_id')
+		.references(() => userTable.id)
+		.notNull(),
+
+	house_id: uuid('house_id')
+		.references(() => houseTable.id)
+		.notNull(),
+	chat: text('chat').notNull()
+});
 
 export const sessionTable = pgTable('session', {
 	id: text('id').primaryKey(),

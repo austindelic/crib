@@ -5,7 +5,7 @@
 	import Footer from '$lib/ui/components/Footer.svelte';
 	import '$css';
 	let { children, data }: { data: { user: User | null }; children: Snippet } = $props();
-	let user = data.user;
+	const { user } = $derived(data);
 </script>
 
 <Navbar {user} />

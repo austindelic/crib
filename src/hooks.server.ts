@@ -1,7 +1,7 @@
 // src/hooks.server.ts
-import { validateSessionToken } from './lib/server/auth/session';
+import { validateSessionToken } from '$server/auth/session';
 
-import { setSessionTokenCookie, deleteSessionTokenCookie } from './lib/server/auth/cookies';
+import { setSessionTokenCookie, deleteSessionTokenCookie } from '$server/auth/cookies';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
