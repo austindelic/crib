@@ -4,8 +4,8 @@ import {
 	createHouseJoinCode,
 	deleteOldJoinCodesFromUser
 } from '$server/db/queries/house_join_code';
-import { error } from '@sveltejs/kit';
 import { env } from '$env';
+import { throwError } from '$utils/error.utils';
 
 export const actions: Actions = {
 	default: async ({ locals, params }) => {
@@ -24,12 +24,12 @@ export const actions: Actions = {
 		//create and new code to the DB.
 		const join_code = await createHouseJoinCode(house_join_code_draft);
 		if (!join_code) {
-			throw error(500, 'Failed to create join code. Please try again later.');
+			throwError('FAILED_TO_CREATE_JOINCODE');
 		}
 		//remove all codes from only THIS user EXCLUDING the one we just made.
 		const result = await deleteOldJoinCodesFromUser(join_code);
-		if (!result) {
-			throw error(500, 'i have NOOOO clue');
+		if (result === null) {
+			throwError('FAILED_TO_DELETE_OLD_USER_JOINCODES');
 		}
 		const join_code_url = `${env.URL}/new-house/join?code=${join_code.id}`;
 		return { join_code: join_code.id, join_code_url };

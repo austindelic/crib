@@ -28,3 +28,18 @@ export type SessionNullable = Nullable<Session>;
 export type HouseJoinCode = InferSelectModel<typeof schema.houseJoinCodeTable>;
 export type HouseJoinCodeDraft = Omit<HouseJoinCode, 'createdAt'>;
 export type HouseJoinCodeNullable = Nullable<HouseJoinCode>;
+
+// --- HouseIssue Types ---
+export type HouseIssue = InferSelectModel<typeof schema.houseIssueTable>;
+export type HouseIssueDraft = Omit<HouseIssue, 'id'>;
+export type HouseIssueNullable = Nullable<HouseIssue>;
+
+// --- HouseChore Types ---
+export type HouseChore = InferSelectModel<typeof schema.houseChoreTable>;
+export type HouseChoreDraft = Omit<HouseChore, 'id'>;
+export type HouseChoreNullable = Nullable<HouseChore>;
+
+// --- HouseMessage Types ---
+export type HouseChat = InferSelectModel<typeof schema.houseChatTable>;
+export type HouseChatDraft = Omit<HouseChat, 'id'>;
+export type HouseChatNullable = Nullable<HouseChat>;

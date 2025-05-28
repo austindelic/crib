@@ -6,6 +6,8 @@ dotenv.config(); // Load .env
 // Define schema
 const envSchema = z.object({
 	URL: z.string().url(),
+	SUPABASE_URL: z.string().url(),
+	SUPABASE_ANON_KEY: z.string(),
 	DATABASE_URL: z.string().url(),
 	GITHUB_CLIENT_ID: z.string(),
 	GITHUB_CLIENT_SECRET: z.string(),

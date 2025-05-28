@@ -8,4 +8,4 @@
 	}
 </script>
 
-<p>{text + ' ' + user.name}</p>
+<p>Welcome {user.name}, {text}</p>

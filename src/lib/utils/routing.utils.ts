@@ -8,6 +8,6 @@ export function getRoute(route_id: string | null): string {
 
 export function safeRedirect(route: string | null, redirect_route: string, status_code = 302) {
 	if (route != redirect_route) {
-		throw redirect(status_code, redirect_route);
+		redirect(status_code, redirect_route);
 	}
 }

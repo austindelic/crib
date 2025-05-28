@@ -14,10 +14,16 @@ export async function selectHouseFromJoinCode(join_code_data: string): Promise<H
 		.select()
 		.from(houseJoinCodeTable)
 		.where(eq(houseJoinCodeTable.id, join_code_data));
+
+	if (!house_join_code) {
+		return null; // Join code not found, return null early
+	}
+
 	const [house] = await db
 		.select()
 		.from(houseTable)
 		.where(eq(houseTable.id, house_join_code.house_id));
+
 	return house ?? null;
 }
 
@@ -45,5 +51,5 @@ export async function deleteOldJoinCodesFromUser(
 			)
 		)
 		.execute();
-	return result.rowCount;
+	return result.rowCount ?? null;
 }

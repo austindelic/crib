@@ -30,7 +30,7 @@ export const load = (async ({ locals, route }) => {
 		//there is no user
 
 		if (current_route == '/') {
-			throw redirect(302, '/home');
+			redirect(302, '/home');
 		}
 		if (isPublicRoute(current_route) || isTestRoute(current_route)) {
 			return {};

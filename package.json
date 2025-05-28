@@ -60,6 +60,7 @@
 		"@lucide/svelte": "^0.511.0",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
+		"@supabase/supabase-js": "^2.49.8",
 		"@threlte/core": "^8.0.4",
 		"@threlte/extras": "^9.2.1",
 		"@threlte/studio": "^0.1.7",

@@ -31,6 +31,5 @@ export async function getHousesFromUserId(user_id: string): Promise<House[] | nu
 
 	// Extract only the house objects
 	const houses = result.map(({ house }) => house);
-
 	return houses.length ? houses : null;
 }

@@ -1,9 +1,6 @@
-import { fail, redirect } from '@sveltejs/kit';
-import { invalidateSession } from '$lib/server/auth/session';
-import { deleteSessionTokenCookie } from '$lib/server/auth/cookies';
 import type { House, User } from '$schema_types';
 
-import type { Actions, PageServerLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import { getHousesFromUserId } from '$server/db/queries/house_users';
 
 export const load: PageServerLoad = async (event) => {
@@ -13,15 +10,4 @@ export const load: PageServerLoad = async (event) => {
 		user,
 		houses
 	};
-};
-
-export const actions: Actions = {
-	default: async (event) => {
-		if (!event.locals.session) {
-			return fail(401);
-		}
-		await invalidateSession(event.locals.session.id);
-		deleteSessionTokenCookie(event);
-		return redirect(302, '/login');
-	}
 };

@@ -1,11 +1,7 @@
-<script>
-	import { Button } from 'flowbite-svelte';
+<script lang="ts">
+	import Error from '$ui/pages/Error.svelte';
+	import { page } from '$app/state';
+	let { error, status }: { error: App.Error | null; status: number } = $derived(page);
 </script>
 
-<p class="mb-4 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl dark:text-white">
-	Something's missing. 404?
-</p>
-<p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
-	Sorry, we can't find that page. You'll find lots to explore on the home page.
-</p>
-<Button href="/" size="lg" color="red">Back to Homepage</Button>
+<Error {error} {status} />

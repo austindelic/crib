@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { throwError } from '$utils/error.utils';
 	import type { PageProps } from './$types';
-	import { error } from '@sveltejs/kit';
 	let { data }: PageProps = $props();
 	const { house } = data;
 	if (!house) {
-		throw error(404, 'House not found');
+		throwError('HOUSE_NOT_FOUND');
 	}
 </script>
 
