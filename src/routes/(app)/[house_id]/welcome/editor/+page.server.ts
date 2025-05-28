@@ -16,7 +16,7 @@ export const actions: Actions = {
 	preview: async (event) => {
 		//create and new code.
 		const formData = await event.request.formData();
-		const new_page_md = formData.get('code') as string; //this is the mose MVP code i have ever seen.
+		const new_page_md = formData.get('code') as string; //this is the most MVP code i have ever seen.
 		const { clean_html: new_clean_html } = mdToCleanHtml(new_page_md);
 		return { new_clean_html };
 	},
