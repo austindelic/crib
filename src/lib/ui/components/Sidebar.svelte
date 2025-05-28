@@ -54,7 +54,7 @@
 							/>
 						{/snippet}
 						<SidebarItem label="Welcome" href="/{house.id}/welcome" />
-						<!-- <SidebarItem label="Chat" href="/{house.id}/chat" />  -->
+						<SidebarItem label="Chat" href="/{house.id}/chat" />
 						<SidebarItem label="Issues" href="/{house.id}/issues" />
 						<SidebarItem label="Chores/Bills" href="/{house.id}/chores" />
 						<SidebarItem label="Share" href="/{house.id}/share" />
