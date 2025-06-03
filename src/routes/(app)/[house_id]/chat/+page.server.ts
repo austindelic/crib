@@ -37,11 +37,14 @@ export const actions: Actions = {
 			chat
 		} as HouseChatDraft;
 		const new_house_chat = await createHouseChat(house_chat_data); // TODO: Make sure this succeed
-		await supabase.channel(house_id).send({
-			type: 'broadcast',
-			event: 'new_chat',
-			payload: new_house_chat
-		});
+		if (new_house_chat) {
+			await supabase.channel(house_id).send({
+				type: 'broadcast',
+				event: 'new_chat',
+				payload: { payload: null }
+			});
+		}
+
 		return {};
 	}
 };

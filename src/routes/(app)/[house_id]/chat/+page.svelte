@@ -4,19 +4,18 @@
 	import MarkdownRenderer from '$ui/components/MarkdownRenderer.svelte';
 	import { enhance } from '$app/forms';
 	import { supabase } from '$utils/supabase_client.utils.js';
-
+	import { invalidateAll } from '$app/navigation';
+	import { browser } from '$app/environment';
 	const { data } = $props();
 	const { user, house }: { user: User; house: House } = data;
 	const { chats }: { chats: HouseChat[] } = $derived(data);
 	let chat_input = $state('');
-	// svelte-ignore state_referenced_locally
-	let subscribed_chat_list: HouseChat[] = $state(chats);
 	const house_chat_channel = supabase.channel(house.id);
 	house_chat_channel
-		.on('broadcast', { event: 'new_chat' }, (payload) => {
-			console.log(payload);
-			const recieved_chat = payload.payload as HouseChat;
-			subscribed_chat_list = [...subscribed_chat_list, recieved_chat];
+		.on('broadcast', { event: 'new_chat' }, () => {
+			if (browser) {
+				invalidateAll();
+			}
 		})
 		.subscribe();
 </script>
@@ -29,7 +28,7 @@
 	</header>
 
 	<main class="flex-1 space-y-4 overflow-y-auto p-6">
-		{#each subscribed_chat_list as chat (chat.id)}
+		{#each chats as chat (chat.id)}
 			<Card
 				class={`p-4 text-base ${
 					chat.user_id === user.id
