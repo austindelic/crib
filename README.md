@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/austindelic/crib">
-    <img src="/images/logo_png.png" alt="Logo" width="80" height="80">
+    <img src="images/logo_png.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">crib.</h3>
