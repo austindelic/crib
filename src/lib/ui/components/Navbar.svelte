@@ -41,7 +41,7 @@
 	</NavUl>
 </Navbar>
 
-<Modal title="Add Product" bind:open={is_open} autoclose>
+<Modal title="Login" bind:open={is_open} autoclose>
 	<form>
 		<div class="mb-4 grid gap-4 sm:grid-cols-2">
 			<Button href="/api/login/google" class="w-52">
