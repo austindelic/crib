@@ -44,10 +44,9 @@
 		<span class="block truncate text-sm font-medium">{user.email}</span>
 	</DropdownHeader>
 	<DropdownGroup>
-		<DropdownItem>Dashboard</DropdownItem>
+		<DropdownItem href="/home">Home</DropdownItem>
 	</DropdownGroup>
 	<DropdownGroup>
-		<DropdownItem>Account</DropdownItem>
 		<DropdownItem onclick={() => (sign_out_modal_state = true)}>Sign out</DropdownItem>
 	</DropdownGroup>
 </Dropdown>

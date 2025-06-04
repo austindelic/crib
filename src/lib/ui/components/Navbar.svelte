@@ -17,8 +17,12 @@
 </script>
 
 <Navbar>
-	<NavBrand href="/">
-		<span class="font-rubikvinyl self-centre text-xl whitespace-nowrap dark:text-white">crib.</span>
+	<NavBrand href="/home">
+		<img
+			src="/src/lib/images/logo.svg"
+			alt="crib. Logo"
+			class="me-3 h-10 filter sm:h-12 dark:invert"
+		/>
 	</NavBrand>
 	<div class="flex md:order-2">
 		<DarkMode />
@@ -35,9 +39,9 @@
 			<NavLi href="/">App</NavLi>
 		{/if}
 		<NavLi href={user ? '/home' : '/'}>Home</NavLi>
-		<NavLi href="/about">About</NavLi>
-		<NavLi href="/pricing">Pricing</NavLi>
-		<NavLi href="/contact">Contact</NavLi>
+		<NavLi href="/home/about">About</NavLi>
+		<NavLi href="/home/pricing">Pricing</NavLi>
+		<NavLi href="/home/contact">Contact</NavLi>
 	</NavUl>
 </Navbar>
 

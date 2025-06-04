@@ -11,27 +11,29 @@
 @theme {
 	--z-index-100: 100;
 
-	--color-primary-50: #fff5f2;
-	--color-primary-100: #fff1ee;
-	--color-primary-200: #ffe4de;
-	--color-primary-300: #ffd5cc;
-	--color-primary-400: #ffbcad;
-	--color-primary-500: #fe795d;
-	--color-primary-600: #ef562f;
-	--color-primary-700: #eb4f27;
-	--color-primary-800: #cc4522;
-	--color-primary-900: #a5371b;
+	/* Primary (Teal) */
+	--color-primary-50: #f0fdfdf; /* very light teal */
+	--color-primary-100: #dbfbf7;
+	--color-primary-200: #b2f7ee;
+	--color-primary-300: #80f1e2;
+	--color-primary-400: #4ce9d4;
+	--color-primary-500: #1cd0c1;
+	--color-primary-600: #14aa9b;
+	--color-primary-700: #12877f;
+	--color-primary-800: #106961;
+	--color-primary-900: #0c554b;
 
-	--color-secondary-50: #f0f9ff;
-	--color-secondary-100: #e0f2fe;
-	--color-secondary-200: #bae6fd;
-	--color-secondary-300: #7dd3fc;
-	--color-secondary-400: #38bdf8;
-	--color-secondary-500: #0ea5e9;
-	--color-secondary-600: #0284c7;
-	--color-secondary-700: #0369a1;
-	--color-secondary-800: #075985;
-	--color-secondary-900: #0c4a6e;
+	/* Secondary (Coral) */
+	--color-secondary-50: #fff5f3; /* very light coral */
+	--color-secondary-100: #ffe8e4;
+	--color-secondary-200: #ffcdc6;
+	--color-secondary-300: #fbb1a4;
+	--color-secondary-400: #f58b7d;
+	--color-secondary-500: #ee6756;
+	--color-secondary-600: #d84e47;
+	--color-secondary-700: #c64542;
+	--color-secondary-800: #a23838;
+	--color-secondary-900: #7e2a2b;
 }
 
 @source "../node_modules/flowbite-svelte/dist";
