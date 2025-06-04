@@ -1,20 +1,21 @@
 import type { House, HouseChat, HouseChatDraft, User } from '$schema_types';
 import type { Actions, PageServerLoad } from './$types';
-import { createHouseChat, getHouseChatsFromHouseId } from '$server/db/queries/chat';
+import { createHouseChat, getHouseChatsFromHouseIdWithUserName } from '$server/db/queries/chat';
 import { mdToCleanHtml } from '$utils/markdown.utils';
 import { supabase } from '$server/db';
 export const load: PageServerLoad = async ({ locals, parent }) => {
 	const user: User = locals.user;
 
 	const { house }: { house: House } = await parent();
-	const rawChats = await getHouseChatsFromHouseId(house.id);
-	const chats: HouseChat[] = rawChats
+	const rawChats = await getHouseChatsFromHouseIdWithUserName(house.id);
+	const chats: (HouseChat & {
+		user_name: string;
+	})[] = rawChats
 		? rawChats.map((chat) => ({
 				...chat,
 				chat: mdToCleanHtml(chat.chat).clean_html ?? ''
 			}))
 		: [];
-
 	return {
 		user,
 		house,
@@ -31,7 +32,6 @@ export const actions: Actions = {
 
 		const form = await request.formData();
 		const chat = form.get('chat');
-		console.log(chat);
 		const house_chat_data = {
 			user_id: user.id,
 			house_id,

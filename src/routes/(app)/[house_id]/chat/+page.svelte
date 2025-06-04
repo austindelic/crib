@@ -11,8 +11,17 @@
 
 	const { data } = $props();
 	const { user, house }: { user: User; house: House } = data;
-	const { chats }: { chats: HouseChat[] } = $derived(data);
+	const {
+		chats
+	}: {
+		chats: (HouseChat & {
+			user_name: string;
+		})[];
+	} = $derived(data);
 	let { chat_input }: { chat_input: string } = $derived(data);
+
+	let chat_container: HTMLElement | null = $state(null);
+
 	const house_chat_channel = supabase.channel(house.id);
 	house_chat_channel
 		.on('broadcast', { event: 'new_chat' }, () => {
@@ -27,6 +36,12 @@
 			house_chat_channel.unsubscribe();
 		}
 	});
+	$effect(() => {
+		if (chat_container && chats) {
+			// check chats because $effect will now run every time chats changes values.
+			chat_container.scrollTop = chat_container.scrollHeight;
+		}
+	});
 </script>
 
 <div
@@ -36,7 +51,7 @@
 		Chat
 	</header>
 
-	<main class="flex-1 space-y-4 overflow-y-auto p-6">
+	<main bind:this={chat_container} class="space-y-4 overflow-y-auto p-6" style="max-height: 80vh;">
 		{#each chats as chat (chat.id)}
 			<Card
 				class={`p-4 text-base ${
@@ -45,8 +60,8 @@
 						: 'mr-auto bg-gray-200 text-black dark:bg-neutral-800 dark:text-neutral-100'
 				} max-w-[70%] rounded-lg`}
 			>
-				<p class="mb-1 text-sm font-semibold text-gray-600 dark:text-gray-400">
-					{chat.user_id}
+				<p class="mb-1 text-sm font-semibold text-white">
+					{chat.user_name}
 				</p>
 				<div class="overflow-hidden rounded-lg bg-neutral-100 p-2 dark:bg-neutral-800">
 					<MarkdownRenderer clean_html={chat.chat} />

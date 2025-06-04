@@ -55,7 +55,13 @@
 					<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
 					{#snippet children({ props })}
 						<Label>Date of Birth</Label>
-						<DateInput bind:value={$formData.dob} format="dd-MM-yyyy" placeholder="04-02-2007" />
+						<DateInput
+							bind:value={$formData.dob}
+							format="dd-MM-yyyy"
+							placeholder="04-02-2007"
+							min={new Date('1900-01-01')}
+							max={new Date(Date.now())}
+						/>
 						<!-- Hidden input ensures value is submitted correctly -->
 						<input type="hidden" name="dob" value={$formData.dob} />
 					{/snippet}
