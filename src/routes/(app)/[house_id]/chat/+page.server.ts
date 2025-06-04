@@ -1,6 +1,5 @@
 import type { House, HouseChat, HouseChatDraft, User } from '$schema_types';
 import type { Actions, PageServerLoad } from './$types';
-
 import { createHouseChat, getHouseChatsFromHouseId } from '$server/db/queries/chat';
 import { mdToCleanHtml } from '$utils/markdown.utils';
 import { supabase } from '$server/db';
@@ -19,7 +18,8 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
 	return {
 		user,
 		house,
-		chats
+		chats,
+		chat_input: '' //hack to reset chat_input
 	};
 };
 
@@ -31,17 +31,21 @@ export const actions: Actions = {
 
 		const form = await request.formData();
 		const chat = form.get('chat');
+		console.log(chat);
 		const house_chat_data = {
 			user_id: user.id,
 			house_id,
 			chat
 		} as HouseChatDraft;
 		const new_house_chat = await createHouseChat(house_chat_data); // TODO: Make sure this succeed
-		await supabase.channel(house_id).send({
-			type: 'broadcast',
-			event: 'new_chat',
-			payload: new_house_chat
-		});
+		if (new_house_chat) {
+			await supabase.channel(house_id).send({
+				type: 'broadcast',
+				event: 'new_chat',
+				payload: { payload: null }
+			});
+		}
+
 		return {};
 	}
 };
