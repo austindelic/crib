@@ -41,7 +41,9 @@
 	>
 		<SidebarGroup>
 			<SidebarBrand class="flex items-center" href="/home">
-				<img src="/src/lib/images/logo.svg" class="me-3 h-6 sm:h-9" alt="crib. Logo" />
+				<span class="font-rubikvinyl ml-2 self-center text-xl whitespace-nowrap dark:text-white"
+					>crib.</span
+				>
 			</SidebarBrand>
 			{#if houses}
 				{#each houses as house (house.id)}

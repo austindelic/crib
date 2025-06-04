@@ -18,11 +18,9 @@
 
 <Navbar>
 	<NavBrand href="/home">
-		<img
-			src="/src/lib/images/logo.svg"
-			alt="crib. Logo"
-			class="me-3 h-10 filter sm:h-12 dark:invert"
-		/>
+		<span class="font-rubikvinyl ml-2 self-center text-xl whitespace-nowrap dark:text-white"
+			>crib.</span
+		>
 	</NavBrand>
 	<div class="flex md:order-2">
 		<DarkMode />
