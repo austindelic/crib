@@ -1,4 +1,3 @@
-// src/lib/utils/error.utils.ts
 import { error as svelteError } from '@sveltejs/kit';
 
 export const ERRORS = {
@@ -12,9 +11,12 @@ export const ERRORS = {
 		status: 500,
 		message: 'FAILED_TO_DELETE_OLD_USER_JOINCODES'
 	},
-	HOUSE_JOINCODE_DOES_NOT_EXIST: { status: 500, message: 'HOUSE_JOINCODE_DOES_NOT_EXIST' }
-
-	// Add more as needed
+	HOUSE_JOINCODE_DOES_NOT_EXIST: { status: 404, message: 'HOUSE_JOINCODE_DOES_NOT_EXIST' },
+	ISSUE_DOES_NOT_EXIST: { status: 404, message: 'ISSUE_DOES_NOT_EXIST' },
+	ISSUE_DOES_NOT_HAVE_CORRECT_HOUSE_ID: {
+		status: 404,
+		message: 'ISSUE_DOES_NOT_HAVE_CORRECT_HOUSE_ID'
+	}
 } as const;
 
 export type ErrorKey = keyof typeof ERRORS;

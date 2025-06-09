@@ -42,13 +42,13 @@
 
 - [x] Create `houses` table in DB
 - [x] Link `users` to `houses` via `house_users` table
-- [ ] Add form for creating a house
-- [ ] Save new house to DB and link current user
-- [ ] Generate unique house join code (UUID or slug)
-- [ ] Create join page with code input
-- [ ] Validate and link user to house via code
-- [ ] Fetch and display houses user is part of
-- [ ] Build dropdown in navbar to switch active house
+- [x] Add form for creating a house
+- [x] Save new house to DB and link current user
+- [x] Generate unique house join code (UUID or slug)
+- [x] Create join page with code input
+- [x] Validate and link user to house via code
+- [x] Fetch and display houses user is part of
+- [x] Build dropdown in navbar to switch active house
 
 ---
 
@@ -90,7 +90,7 @@
 
 ## 📆 PHASE 7: Shared Calendar
 
-- [ ] Install fullcalendar or Svelte calendar lib
+- [x] Install fullcalendar or Svelte calendar lib
 - [ ] Create `events` table in DB (title, date, house_id)
 - [ ] Add form to create calendar event
 - [ ] Display event list in month view
@@ -102,10 +102,10 @@
 
 ## 📄 PHASE 8: Custom House Page (.md)
 
-- [ ] Create markdown content column in `houses` table
-- [ ] Add internal markdown editor component (Monaco, SimpleMDE)
-- [ ] Add live preview toggle next to editor
-- [ ] Render custom content on House “Home” page
+- [x] Create markdown content column in `houses` table
+- [x] Add internal markdown editor component (Monaco, SimpleMDE)
+- [x] Add live preview toggle next to editor
+- [x] Render custom content on House “Home” page
 
 ---
 
@@ -132,7 +132,7 @@
 
 - [ ] Add responsive layout to all pages
 - [ ] Add consistent spacing + typography with Tailwind
-- [ ] Add dark mode toggle
+- [x] Add dark mode toggle
 - [ ] Add icon set to buttons/navigation
 - [ ] Add toast notifications for actions
 
@@ -140,9 +140,9 @@
 
 ## 🚀 PHASE 12: Launch & Feedback
 
-- [ ] Connect custom domain on Vercel
+- [x] Connect custom domain on Vercel
 - [ ] Add “Report bug” and “Request feature” links
-- [ ] Add lightweight analytics (e.g. Plausible)
+- [x] Add lightweight analytics (e.g. Plausible)
 - [ ] Collect user feedback and prioritise v2 roadmap
 
 ---
@@ -151,3 +151,4 @@
 
 - [ ] Meal Prep?
 - [ ] Dietry Requirements
+- [ ] 3D house view?

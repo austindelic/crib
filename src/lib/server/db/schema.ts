@@ -71,7 +71,8 @@ export const houseIssueTable = pgTable('house_issues', {
 	house_id: uuid('house_id')
 		.references(() => houseTable.id)
 		.notNull(),
-	issue: text('issue').notNull()
+	name: text('name').notNull(),
+	description: text('description').notNull()
 });
 
 export const houseChoreTable = pgTable('house_chores', {

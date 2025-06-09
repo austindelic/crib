@@ -3,7 +3,7 @@
 	import { Button, Card } from 'flowbite-svelte';
 	import MarkdownRenderer from '$ui/components/MarkdownRenderer.svelte';
 	import { enhance } from '$app/forms';
-	import { supabase } from '$utils/supabase_client.utils.js';
+	import { supabase } from '$utils/supabase_client.utils';
 	import { invalidateAll } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import MarkdownEditor from '$ui/components/MarkDownEditor.svelte';

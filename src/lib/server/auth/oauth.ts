@@ -1,5 +1,5 @@
 import { GitHub, Google } from 'arctic';
-import { env } from '$lib/server/env';
+import { env } from '$env';
 
 export const github = new GitHub(
 	env.GITHUB_CLIENT_ID,

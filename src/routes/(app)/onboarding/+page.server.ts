@@ -6,6 +6,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { schema } from '$lib/form_schemas/onboarding.schema';
 import { updateUser } from '$lib/server/db/queries/user';
 import type { User } from '$schema_types';
+
 export const load: PageServerLoad = async () => {
 	return {
 		form: await superValidate(zod(schema))

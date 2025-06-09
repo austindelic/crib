@@ -1,7 +1,3 @@
 <script lang="ts">
-	import type { PageProps } from './$types';
-
-	let { data }: PageProps = $props();
+	//DO NOT DELETE, THIS FILE NEEDS TO EXIST FOR ROUTE TO EXIST
 </script>
-
-<p>issues</p>

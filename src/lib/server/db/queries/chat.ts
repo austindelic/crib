@@ -1,6 +1,6 @@
 import { houseChatTable, userTable } from '$server/db/schema';
 import { db } from '$server/db/index';
-import type { HouseChat, HouseChatDraft, User } from '$schema_types';
+import type { HouseChat, HouseChatDraft } from '$schema_types';
 import { eq } from 'drizzle-orm';
 
 export async function createHouseChat(house_chat_data: HouseChatDraft): Promise<HouseChat | null> {
