@@ -18,8 +18,7 @@
 	import { superForm } from 'sveltekit-superforms';
 	import { Control, Field, FieldErrors } from 'formsnap';
 	import { enhance } from '$app/forms';
-	import ViewIssueModal from '$ui/modals/issue/viewIssue.modal.svelte';
-
+	import ViewIssueModal from '$ui/modals/issue/ViewIssue.modal.svelte';
 	import type { PageProps } from './$types';
 	import type { HouseIssue } from '$schema_types';
 	const { data }: PageProps = $props();
