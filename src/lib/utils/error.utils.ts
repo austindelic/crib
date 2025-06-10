@@ -28,6 +28,22 @@ export const ERRORS = {
 	FAILED_TO_UPDATE_HOUSE_ISSUE: {
 		status: 500,
 		message: 'FAILED_TO_UPDATE_HOUSE_ISSUE'
+	},
+	FAILED_TO_CREATE_HOUSE: {
+		status: 500,
+		message: 'FAILED_TO_CREATE_HOUSE'
+	},
+	FAILED_TO_ONBOARD_USER: {
+		status: 500,
+		message: 'FAILED_TO_ONBOARD_USER'
+	},
+	FAILED_TO_CREATE_HOUSE_USER: {
+		status: 500,
+		message: 'FAILED_TO_CREATE_HOUSE_USER'
+	},
+	FAILED_TO_CREATE_HOUSE_CHAT: {
+		status: 500,
+		message: 'FAILED_TO_CREATE_HOUSE_CHAT'
 	}
 } as const;
 

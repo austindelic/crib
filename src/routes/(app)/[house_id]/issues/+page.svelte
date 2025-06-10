@@ -8,9 +8,9 @@
 		TableHeadCell,
 		Button
 	} from 'flowbite-svelte';
-	import ViewIssueModal from '$ui/modals/issue/ViewIssue.modal.svelte';
-	import CreateIssueModal from '$ui/modals/issue/CreateIssue.modal.svelte';
-	import EditIssueModal from '$ui/modals/issue/EditIssue.modal.svelte';
+	import ViewIssueModal from '$ui/components/issues/ViewIssue.modal.svelte';
+	import CreateIssueModal from '$ui/components/issues/CreateIssue.modal.svelte';
+	import EditIssueModal from '$ui/components/issues/EditIssue.modal.svelte';
 
 	import type { PageProps } from './$types';
 	import type { HouseIssue } from '$schema_types';

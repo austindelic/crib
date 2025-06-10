@@ -1,37 +1,32 @@
-import { fail, redirect } from '@sveltejs/kit';
-import type { PageServerLoad, Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema } from '$lib/form_schemas/create_house.schema';
-import type { HouseDraft } from '$schema_types';
+import { schema } from '$lib/form_schemas/house/create_house.schema';
 import { createHouse } from '$lib/server/db/queries/house';
+import { throwError } from '$utils/error.utils';
+
+import type { PageServerLoad, Actions } from './$types';
+import type { HouseDraft } from '$schema_types';
+
 export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod(schema));
 	return {
-		form: await superValidate(zod(schema))
+		form
 	};
 };
 
 export const actions: Actions = {
-	default: async (event) => {
+	create: async (event) => {
 		const form = await superValidate(event, zod(schema));
-		if (!event.locals.user) {
-			return fail(401, { message: 'No user?' });
-		}
-
-		if (!form.valid) {
-			return fail(401);
-		}
-		if (!event.locals.user) {
-			return fail(401, { message: 'User not authenticated' });
-		}
 
 		const house_data = {
 			name: form.data.house_name,
 			user_id: event.locals.user.id
 		} as HouseDraft;
 		const house = await createHouse(house_data);
-		if (house) {
-			redirect(302, '/');
+		if (!house) {
+			throwError('FAILED_TO_CREATE_HOUSE');
 		}
+		redirect(302, '/');
 	}
 };

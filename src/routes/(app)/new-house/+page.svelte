@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <div class="mx-auto mt-16 max-w-md rounded-xl bg-white p-8 text-center shadow-lg">
 	<div>
 		<a

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Hero3DText from '$ui/threlte/Hero3DText.svelte';
+	import Hero3DText from '$ui/components/Hero3DText.svelte';
 	import { Canvas } from '@threlte/core';
 	let text = 'crib.';
 	let bevelEnabled = false;

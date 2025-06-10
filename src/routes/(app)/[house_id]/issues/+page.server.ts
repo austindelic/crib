@@ -11,7 +11,6 @@ import { schema as create_schema } from '$lib/form_schemas/issue/create_issue.sc
 import { schema as edit_schema } from '$lib/form_schemas/issue/edit_issue.schema';
 
 import type { Actions, PageServerLoad } from './$types';
-import { base } from '$app/paths';
 import { throwError } from '$utils/error.utils';
 
 export const load: PageServerLoad = async (event) => {
