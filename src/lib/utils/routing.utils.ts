@@ -28,7 +28,7 @@ export function redirectToChild(url: string, page: Page<Record<string, string>, 
 	const segments: string[] = currentPath.split('/');
 	if (segments.length > 1) {
 		segments.push(url);
-		const parentPath = segments.join('/') + '/';
+		const parentPath = segments.join('/');
 		goto(parentPath);
 	}
 }

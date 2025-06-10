@@ -8,8 +8,9 @@ import { updateUser } from '$lib/server/db/queries/user';
 import type { User } from '$schema_types';
 
 export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod(schema));
 	return {
-		form: await superValidate(zod(schema))
+		form
 	};
 };
 
@@ -37,7 +38,7 @@ export const actions: Actions = {
 
 		const updated_user = await updateUser(user_data);
 		if (updated_user) {
-			redirect(302, '/');
+			redirect(302, '/'); //should happen automatically but just in case
 		}
 	}
 };

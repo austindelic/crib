@@ -10,7 +10,7 @@
 	const form = superForm(data.form, {
 		validators: zodClient(schema)
 	});
-	const { form: formData, enhance } = form;
+	const { form: form_data, enhance } = form;
 </script>
 
 <form use:enhance class="mx-auto flex max-w-md flex-col" method="POST">
@@ -24,7 +24,7 @@
 							{...props}
 							type="text"
 							placeholder="Type Full Name"
-							bind:value={$formData.name}
+							bind:value={$form_data.name}
 							required
 						/>
 					{/snippet}
@@ -41,7 +41,7 @@
 							{...props}
 							type="text"
 							placeholder="example@email.com"
-							bind:value={$formData.email}
+							bind:value={$form_data.email}
 							required
 						/>
 					{/snippet}
@@ -56,14 +56,14 @@
 					{#snippet children({ props })}
 						<Label>Date of Birth</Label>
 						<DateInput
-							bind:value={$formData.dob}
+							bind:value={$form_data.dob}
 							format="dd-MM-yyyy"
 							placeholder="04-02-2007"
 							min={new Date('1900-01-01')}
 							max={new Date(Date.now())}
 						/>
 						<!-- Hidden input ensures value is submitted correctly -->
-						<input type="hidden" name="dob" value={$formData.dob} />
+						<input type="hidden" name="dob" value={$form_data.dob} />
 					{/snippet}
 				</Control>
 				<FieldErrors />
@@ -77,7 +77,7 @@
 							{...props}
 							variant="outlined"
 							type="text"
-							bind:value={$formData.phone_number}>Phone Number</FloatingLabelInput
+							bind:value={$form_data.phone_number}>Phone Number</FloatingLabelInput
 						>
 					{/snippet}
 				</Control>
