@@ -13,14 +13,10 @@
 	});
 </script>
 
-<div>{issue.name}</div>
-<div>{issue.description}</div>
-
 <Modal
-	title="Login"
+	title={`Issue: ${issue.name}`}
 	bind:open={is_open}
 	onclose={() => {
-		console.log('changed page');
 		redirectToParent(page);
 	}}
 >
@@ -28,6 +24,7 @@
 		<div class="mb-4 grid gap-4 sm:grid-cols-2">
 			<div>{issue.name}</div>
 			<div>{issue.description}</div>
+			<div>{issue.created_at}</div>
 		</div>
 	</form>
 </Modal>

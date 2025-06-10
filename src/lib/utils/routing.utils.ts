@@ -15,12 +15,20 @@ export function safeRedirect(route: string | null, redirect_route: string, statu
 
 export function redirectToParent(page: Page<Record<string, string>, string | null>) {
 	const currentPath = page.url.pathname;
-	console.log(page.url);
 	const segments: string[] = currentPath.split('/');
 	if (segments.length > 1) {
 		segments.pop();
 		const parentPath = segments.join('/') + '/';
-		console.log(parentPath);
+		goto(parentPath);
+	}
+}
+
+export function redirectToChild(url: string, page: Page<Record<string, string>, string | null>) {
+	const currentPath = page.url.pathname;
+	const segments: string[] = currentPath.split('/');
+	if (segments.length > 1) {
+		segments.push(url);
+		const parentPath = segments.join('/') + '/';
 		goto(parentPath);
 	}
 }

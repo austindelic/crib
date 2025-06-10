@@ -7,37 +7,34 @@
 		TableHead,
 		TableHeadCell
 	} from 'flowbite-svelte';
-	import type { Snippet } from 'svelte';
+	import { page } from '$app/state';
+	import { redirectToChild } from '$utils/routing.utils';
+	import type { LayoutProps } from './$types';
 
-	const { children }: { children: Snippet } = $props();
+	const { children, data }: LayoutProps = $props();
+	const issues = $derived(data.issues ?? []);
 </script>
 
 <Table>
 	<TableHead>
-		<TableHeadCell>Product name</TableHeadCell>
-		<TableHeadCell>Color</TableHeadCell>
-		<TableHeadCell>Category</TableHeadCell>
-		<TableHeadCell>Price</TableHeadCell>
+		<TableHeadCell>Name</TableHeadCell>
+		<TableHeadCell>Description</TableHeadCell>
+		<TableHeadCell>Date Created</TableHeadCell>
+		<TableHeadCell>Priority</TableHeadCell>
 	</TableHead>
 	<TableBody>
-		<TableBodyRow>
-			<TableBodyCell>Apple MacBook Pro 17"</TableBodyCell>
-			<TableBodyCell>Sliver</TableBodyCell>
-			<TableBodyCell>Laptop</TableBodyCell>
-			<TableBodyCell>$2999</TableBodyCell>
-		</TableBodyRow>
-		<TableBodyRow>
-			<TableBodyCell>Microsoft Surface Pro</TableBodyCell>
-			<TableBodyCell>White</TableBodyCell>
-			<TableBodyCell>Laptop PC</TableBodyCell>
-			<TableBodyCell>$1999</TableBodyCell>
-		</TableBodyRow>
-		<TableBodyRow>
-			<TableBodyCell>Magic Mouse 2</TableBodyCell>
-			<TableBodyCell>Black</TableBodyCell>
-			<TableBodyCell>Accessories</TableBodyCell>
-			<TableBodyCell>$99</TableBodyCell>
-		</TableBodyRow>
+		{#each issues as issue (issue.id)}
+			<TableBodyRow
+				onclick={() => {
+					redirectToChild(`${issue.id}`, page);
+				}}
+			>
+				<TableBodyCell>{issue.name}</TableBodyCell>
+				<TableBodyCell>{issue.description}</TableBodyCell>
+				<TableBodyCell>{issue.created_at}</TableBodyCell>
+				<TableBodyCell>High Priority!</TableBodyCell>
+			</TableBodyRow>
+		{/each}
 	</TableBody>
 </Table>
 {@render children()}
