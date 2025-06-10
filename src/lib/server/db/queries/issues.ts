@@ -27,7 +27,7 @@ export async function updateHouseIssue(house_issue_data: HouseIssue): Promise<Ho
 	const [updatedIssue] = await db
 		.update(houseIssueTable)
 		.set(house_issue_data)
-		.where(eq(houseTable.id, house_issue_data.id))
+		.where(eq(houseIssueTable.id, house_issue_data.id))
 		.returning();
 
 	return updatedIssue ?? null;

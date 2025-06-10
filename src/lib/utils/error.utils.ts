@@ -16,6 +16,18 @@ export const ERRORS = {
 	ISSUE_DOES_NOT_HAVE_CORRECT_HOUSE_ID: {
 		status: 404,
 		message: 'ISSUE_DOES_NOT_HAVE_CORRECT_HOUSE_ID'
+	},
+	HOUSE_ISSUE_DOES_NOT_EXIST: {
+		status: 404,
+		message: 'HOUSE_ISSUE_DOES_NOT_EXIST'
+	},
+	FAILED_TO_CREATE_HOUSE_ISSUE: {
+		status: 500,
+		message: 'FAILED_TO_CREATE_HOUSE_ISSUE'
+	},
+	FAILED_TO_UPDATE_HOUSE_ISSUE: {
+		status: 500,
+		message: 'FAILED_TO_UPDATE_HOUSE_ISSUE'
 	}
 } as const;
 
