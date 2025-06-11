@@ -77,7 +77,7 @@
 					<CircleHelp />
 				{/snippet}
 			</SidebarItem>
-			<SidebarItem label="Theme">
+			<SidebarItem label="Theme (beta)">
 				{#snippet icon()}
 					<DarkMode />
 				{/snippet}
