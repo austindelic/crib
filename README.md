@@ -41,7 +41,7 @@
     <a href="https://github.com/austindelic/crib"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://crib-peach.vercel.app/">View Demo</a>
+    <a href="https://thecrib.tech/">View Demo</a>
     &middot;
     <a href="https://github.com/austindelic/crib/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
