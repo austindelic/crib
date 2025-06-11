@@ -6,7 +6,8 @@
 		SidebarButton,
 		uiHelpers,
 		SidebarBrand,
-		SidebarDropdownWrapper
+		SidebarDropdownWrapper,
+		DarkMode
 	} from 'flowbite-svelte';
 	import { CircleHelp, House as HouseIcon, Plus } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
@@ -41,7 +42,8 @@
 	>
 		<SidebarGroup>
 			<SidebarBrand class="flex items-center" href="/home">
-				<span class="font-rubikvinyl ml-2 self-center text-xl whitespace-nowrap dark:text-white"
+				<span
+					class="font-rubikvinyl text-primary-600 dark:text-primary-400 ml-2 self-center text-xl whitespace-nowrap"
 					>crib.</span
 				>
 			</SidebarBrand>
@@ -70,9 +72,14 @@
 			</SidebarItem>
 		</SidebarGroup>
 		<SidebarGroup border>
-			<SidebarItem label="Help">
+			<SidebarItem label="Help" href="/help">
 				{#snippet icon()}
 					<CircleHelp />
+				{/snippet}
+			</SidebarItem>
+			<SidebarItem label="Theme (beta)">
+				{#snippet icon()}
+					<DarkMode />
 				{/snippet}
 			</SidebarItem>
 		</SidebarGroup>

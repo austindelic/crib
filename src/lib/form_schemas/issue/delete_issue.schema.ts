@@ -2,7 +2,7 @@ import z from 'zod';
 
 export const schema = z
 	.object({
-		name: z.string().min(1, { message: 'You must confirm the name' }),
+		name: z.string().min(1, { message: 'You must confirm the name of the issue' }),
 		real_name: z.string(),
 		id: z.string()
 	})

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HelpPage from '$ui/pages/Help.page.svelte';
+	import NewUser from '$ui/pages/NewUser.page.svelte';
 </script>
 
-<HelpPage />
+<NewUser />

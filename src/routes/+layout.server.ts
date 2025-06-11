@@ -22,7 +22,7 @@ export const load = (async ({ locals, route }) => {
 	if (user) {
 		// there is a user
 		if (!user.dob) {
-			safeRedirect(current_route, '/onboarding');
+			safeRedirect(current_route, '/');
 			// internal logic to force onboarding.
 		}
 		return { user };

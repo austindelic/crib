@@ -14,7 +14,7 @@
 	});
 </script>
 
-<form use:enhance class="mx-auto flex max-w-md flex-col" method="POST" action="/?create">
+<form use:enhance class="mx-auto flex max-w-md flex-col" method="POST" action="?/create">
 	<Field {form} name="house_name">
 		<Control>
 			{#snippet children({ props })}

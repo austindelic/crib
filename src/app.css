@@ -4,7 +4,6 @@
 
 @source './src/**/*.{html,js,svelte,ts,md}';
 @source '../node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}';
-@source '../node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}';
 
 @plugin 'flowbite/plugin';
 
@@ -37,7 +36,6 @@
 }
 
 @source "../node_modules/flowbite-svelte/dist";
-@source "../node_modules/flowbite-svelte-icons/dist";
 
 @layer base {
 	@layer base {

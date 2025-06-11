@@ -10,14 +10,6 @@
 	} from 'flowbite-svelte';
 	import type { User } from '$lib/schema_types';
 
-	function getAvatarUrl(user: User): string {
-		if (user.avatar_provider === 'github') {
-			return `https://avatars.githubusercontent.com/u/${user.github_id}?v=4`;
-		} else {
-			return '';
-		}
-	}
-
 	async function handleLogout() {
 		const res = await fetch('/api/logout', {
 			method: 'POST'
@@ -30,14 +22,12 @@
 		}
 	}
 
-	const { user }: { user: User | null } = $props();
-	if (!user) {
-		throw new Error('User is not defined in Avatar');
-	}
+	const { user }: { user: User } = $props();
+
 	let sign_out_modal_state = $state(false);
 </script>
 
-<Avatar id="user-drop" src={getAvatarUrl(user)} class="cursor-pointer" />
+<Avatar id="user-drop" src={user.avatar_url ?? ''} class="cursor-pointer" />
 <Dropdown triggeredBy="#user-drop">
 	<DropdownHeader>
 		<span class="block text-sm">{user.name}</span>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	import 'github-markdown-css/github-markdown-light.css';
-	import 'highlight.js/styles/github.css';
+
 	import MdRenderer from '$ui/components/MarkdownRenderer.svelte';
 	import { Button } from 'flowbite-svelte';
 	import { SquarePen } from '@lucide/svelte';
@@ -12,7 +11,11 @@
 {#if clean_html}
 	<MdRenderer {clean_html} />
 {/if}
-<Button class="flex items-center gap-2 " href="welcome/editor">
-	<SquarePen />
-	<span>Edit</span>
-</Button>
+
+<!-- Edit Button -->
+<div class="mt-8 text-right">
+	<Button href="welcome/editor" class="flex items-center gap-2">
+		<SquarePen class="h-4 w-4" />
+		<span>Edit</span>
+	</Button>
+</div>

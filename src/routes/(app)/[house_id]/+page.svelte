@@ -8,4 +8,4 @@
 	}
 </script>
 
-<p>this is a test {house.name}</p>
+<p>{house.name}: Dashboard</p>

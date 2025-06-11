@@ -3,8 +3,7 @@ import { getHousesFromUserId } from '$server/db/queries/house_users';
 import { getRoute, safeRedirect } from '$utils/routing.utils';
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-
-export const load = (async ({ locals, route }) => {
+export const load: LayoutServerLoad = async ({ locals, route }) => {
 	const user: User = locals.user;
 	if (!user) {
 		redirect(302, '/');
@@ -13,11 +12,10 @@ export const load = (async ({ locals, route }) => {
 	const current_route = getRoute(route.id);
 
 	if (!user.dob) {
-		safeRedirect(current_route, '/onboarding');
-		// internal logic to force onboarding.
+		safeRedirect(current_route, '/');
 	} else {
-		if (current_route == '/onboarding') {
-			redirect(302, '/');
+		if (houses === null && current_route !== '/help') {
+			safeRedirect(current_route, '/new-house');
 		}
 	}
 
@@ -25,4 +23,4 @@ export const load = (async ({ locals, route }) => {
 		user,
 		houses
 	};
-}) satisfies LayoutServerLoad;
+};

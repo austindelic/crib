@@ -1,12 +1,13 @@
 // routes/login/google/callback/+server.ts
 import { generateSessionToken, createSession } from '$lib/server/auth/session';
 import { setSessionTokenCookie } from '$lib/server/auth/cookies';
-import { createUser, getUserFromGoogleId } from '$lib/server/db/queries/user';
+import { createUser, getUserFromGoogleId, updateUser } from '$lib/server/db/queries/user';
 import { google } from '$lib/server/auth/oauth';
 import { decodeIdToken } from 'arctic';
-import type { UserDraft } from '$schema_types';
+import type { User, UserDraft } from '$schema_types';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { OAuth2Tokens } from 'arctic';
+import { throwError } from '$utils/error.utils';
 
 export async function GET(event: RequestEvent): Promise<Response> {
 	const code = event.url.searchParams.get('code');
@@ -34,16 +35,29 @@ export async function GET(event: RequestEvent): Promise<Response> {
 			status: 400
 		});
 	}
-	const claims = decodeIdToken(tokens.idToken()) as { sub: string; name?: string };
+	const claims = decodeIdToken(tokens.idToken()) as {
+		sub: string;
+		name?: string;
+		picture?: string;
+	};
 	const googleUserId = claims.sub;
 	const username = claims.name;
-
-	const existingUser = await getUserFromGoogleId(googleUserId);
+	const avatarUrl = claims.picture ?? null;
+	const existingUser: User | null = await getUserFromGoogleId(googleUserId);
 
 	if (existingUser !== null) {
 		const sessionToken = generateSessionToken();
 		const session = await createSession(sessionToken, existingUser.id!);
 		setSessionTokenCookie(event, sessionToken, session.expires_at!);
+		if (!existingUser.avatar_url) {
+			const updated_user: User | null = await updateUser({
+				...existingUser,
+				avatar_url: avatarUrl ?? null
+			});
+			if (!updated_user) {
+				throwError('FAILED_TO_UPDATE_USER_AVATAR_URL');
+			}
+		}
 		return new Response(null, {
 			status: 302,
 			headers: {
@@ -51,13 +65,16 @@ export async function GET(event: RequestEvent): Promise<Response> {
 			}
 		});
 	}
-
-	const user = await createUser({
+	const user_data = {
 		username: username,
 		google_id: googleUserId,
-		avatar_provider: 'google'
-	} as UserDraft);
+		avatar_url: avatarUrl
+	} as UserDraft;
 
+	const user: User | null = await createUser(user_data);
+	if (!user) {
+		throwError('FAILED_TO_CREATE_USER_FROM_GOOGLE');
+	}
 	const sessionToken = generateSessionToken();
 	const session = await createSession(sessionToken, user!.id!);
 	setSessionTokenCookie(event, sessionToken, session.expires_at!);

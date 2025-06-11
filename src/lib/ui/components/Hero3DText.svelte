@@ -46,14 +46,15 @@
 					align();
 				}}
 			/>
-			<T.MeshStandardMaterial color="#999999" toneMapped={false} metalness={1.0} roughness={0.2} />
+			<T.MeshStandardMaterial color="#1cd0c1" toneMapped={false} metalness={0} roughness={0.1} />
 		</T.Mesh>
 	{/snippet}
 </Align>
 
 <!-- Add a light source -->
-<T.PointLight position={[10, 10, 10]} intensity={10} />
-<T.AmbientLight intensity={0.5} />
+
+<T.PointLight position={[10, 10, 10]} intensity={5} />
+<T.AmbientLight intensity={2} />
 <Environment url="textures\equirect_ruined_room.jpg" isBackground={false} />
 
 <Float rotationIntensity={[0, 3, 0]} rotationSpeed={1} floatingRange={[-5, 5]} speed={1}>
