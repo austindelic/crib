@@ -4,4 +4,4 @@
 	let { data }: PageProps = $props();
 </script>
 
-<p>chores</p>
+<p>Chores is currently under devlopment...</p>

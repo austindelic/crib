@@ -1,29 +1,31 @@
 import { format } from 'date-fns';
-import { fail, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from '../$types';
-import { superValidate } from 'sveltekit-superforms';
+import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema } from '$lib/form_schemas/onboarding.schema';
+import { schema } from '$lib/form_schemas/onboarding/onboarding.schema';
 import { updateUser } from '$lib/server/db/queries/user';
 import type { User } from '$schema_types';
+import { throwError } from '$utils/error.utils';
+
 export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod(schema));
 	return {
-		form: await superValidate(zod(schema))
+		form
 	};
 };
 
 export const actions: Actions = {
-	default: async (event) => {
+	submit: async (event) => {
 		const form = await superValidate(event, zod(schema));
-		if (!event.locals.user) {
-			return fail(401, { message: 'No user?' });
-		}
-
 		if (!form.valid) {
-			return fail(401);
+			return fail(400, { form });
 		}
 		if (!event.locals.user) {
-			return fail(401, { message: 'User not authenticated' });
+			throwError('USER_NOT_LOGGED_IN');
+		}
+		if (!event.locals.user) {
+			throwError('USER_FORBIDDEN');
 		}
 
 		const user_data: User = {
@@ -35,8 +37,9 @@ export const actions: Actions = {
 		};
 
 		const updated_user = await updateUser(user_data);
-		if (updated_user) {
-			redirect(302, '/');
+		if (!updated_user) {
+			throwError('FAILED_TO_ONBOARD_USER');
 		}
+		redirect(302, '/'); //should happen automatically but just in case
 	}
 };

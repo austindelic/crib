@@ -1,30 +1,34 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
-import { superValidate } from 'sveltekit-superforms';
+import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema } from '$lib/form_schemas/join_code.schema';
+import { schema } from '$lib/form_schemas/join_code/join_code.schema';
 import { selectHouseFromJoinCode } from '$lib/server/db/queries/house_join_code';
 import { createHouseUser } from '$lib/server/db/queries/house_users';
 import type { HouseUserDraft } from '$schema_types';
 import { throwError } from '$utils/error.utils';
+
 export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod(schema));
 	return {
-		form: await superValidate(zod(schema))
+		form
 	};
 };
 
 export const actions: Actions = {
-	default: async (event) => {
+	submit: async (event) => {
 		const form = await superValidate(event, zod(schema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 		if (!event.locals.user) {
-			return fail(401, { message: 'No user?' });
+			throwError('USER_NOT_LOGGED_IN');
 		}
 
-		if (!form.valid) {
-			return fail(401);
-		}
 		if (!event.locals.user) {
-			return fail(401, { message: 'User not authenticated' });
+			if (!form.valid) {
+				throwError('USER_FORBIDDEN');
+			}
 		}
 		const join_code_data = form.data.join_code;
 		const house = await selectHouseFromJoinCode(join_code_data);
@@ -36,8 +40,9 @@ export const actions: Actions = {
 			house_id: house?.id
 		} as HouseUserDraft;
 		const house_user = await createHouseUser(house_user_data);
-		if (house_user) {
-			redirect(302, '/');
+		if (!house_user) {
+			throwError('FAILED_TO_CREATE_HOUSE_USER');
 		}
+		redirect(302, '/');
 	}
 };

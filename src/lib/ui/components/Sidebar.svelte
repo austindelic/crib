@@ -8,7 +8,7 @@
 		SidebarBrand,
 		SidebarDropdownWrapper
 	} from 'flowbite-svelte';
-	import { House as HouseIcon, Plus } from '@lucide/svelte';
+	import { CircleHelp, House as HouseIcon, Plus } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import Avatar from './Avatar.svelte';
@@ -66,6 +66,13 @@
 					<Plus
 						class="h-5 w-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
 					/>
+				{/snippet}
+			</SidebarItem>
+		</SidebarGroup>
+		<SidebarGroup border>
+			<SidebarItem label="Help">
+				{#snippet icon()}
+					<CircleHelp />
 				{/snippet}
 			</SidebarItem>
 		</SidebarGroup>

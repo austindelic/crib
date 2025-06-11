@@ -3,6 +3,11 @@ import type { Actions, PageServerLoad } from './$types';
 import { createHouseChat, getHouseChatsFromHouseIdWithUserName } from '$server/db/queries/chat';
 import { mdToCleanHtml } from '$utils/markdown.utils';
 import { supabase } from '$server/db';
+import { fail, superValidate } from 'sveltekit-superforms';
+import { schema } from '$lib/form_schemas/chat/create_chat.schema';
+import { zod } from 'sveltekit-superforms/adapters';
+import { throwError } from '$utils/error.utils';
+
 export const load: PageServerLoad = async ({ locals, parent }) => {
 	const user: User = locals.user;
 
@@ -16,36 +21,40 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
 				chat: mdToCleanHtml(chat.chat).clean_html ?? ''
 			}))
 		: [];
+	const form = await superValidate(zod(schema));
 	return {
 		user,
 		house,
 		chats,
-		chat_input: '' //hack to reset chat_input
+		form
 	};
 };
 
 export const actions: Actions = {
-	send: async ({ locals, params, request }) => {
-		const user: User = locals.user;
+	send: async (event) => {
+		const user: User = event.locals.user;
 
-		const house_id = params.house_id;
+		const house_id = event.params.house_id;
 
-		const form = await request.formData();
-		const chat = form.get('chat');
+		const form = await superValidate(event, zod(schema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+		const chat = form.data.chat;
 		const house_chat_data = {
 			user_id: user.id,
 			house_id,
 			chat
 		} as HouseChatDraft;
 		const new_house_chat = await createHouseChat(house_chat_data); // TODO: Make sure this succeed
-		if (new_house_chat) {
-			await supabase.channel(house_id).send({
-				type: 'broadcast',
-				event: 'new_chat',
-				payload: { payload: null }
-			});
+		if (!new_house_chat) {
+			throwError('FAILED_TO_CREATE_HOUSE_CHAT');
 		}
-
+		await supabase.channel(house_id).send({
+			type: 'broadcast',
+			event: 'new_chat',
+			payload: { payload: null }
+		});
 		return {};
 	}
 };
