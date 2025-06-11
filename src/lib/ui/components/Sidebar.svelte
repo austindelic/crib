@@ -46,7 +46,6 @@
 					class="font-rubikvinyl text-primary-600 dark:text-primary-400 ml-2 self-center text-xl whitespace-nowrap"
 					>crib.</span
 				>
-				<DarkMode />
 			</SidebarBrand>
 			{#if houses}
 				{#each houses as house (house.id)}
@@ -76,6 +75,11 @@
 			<SidebarItem label="Help" href="/help">
 				{#snippet icon()}
 					<CircleHelp />
+				{/snippet}
+			</SidebarItem>
+			<SidebarItem label="Theme">
+				{#snippet icon()}
+					<DarkMode />
 				{/snippet}
 			</SidebarItem>
 		</SidebarGroup>

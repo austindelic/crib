@@ -27,10 +27,10 @@
 			is_submitting = true;
 			return async ({ result, update }) => {
 				if (result.type === 'success') {
-					is_submitting = false;
 					is_open = false;
 				}
 				await update();
+				is_submitting = false;
 			};
 		}}
 		class="mx-auto mt-4 flex max-w-md flex-col space-y-6"

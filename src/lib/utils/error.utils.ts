@@ -63,6 +63,10 @@ export const ERRORS = {
 	FAILED_TO_CREATE_USER_FROM_GOOGLE: {
 		status: 500,
 		message: 'FAILED_TO_CREATE_USER_FROM_GOOGLE'
+	},
+	USER_NAME_IS_EMPTY_AFTER_ONBOARDING: {
+		status: 500,
+		message: 'USER_NAME_IS_EMPTY_AFTER_ONBOARDING'
 	}
 } as const;
 

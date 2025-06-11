@@ -1,8 +1,17 @@
 <script lang="ts">
-	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, DarkMode, Button } from 'flowbite-svelte';
+	import {
+		Navbar,
+		NavBrand,
+		NavLi,
+		NavUl,
+		NavHamburger,
+		DarkMode,
+		Button,
+		A
+	} from 'flowbite-svelte';
 	import type { User } from '$lib/schema_types';
 	import Avatar from './Avatar.svelte';
-
+	import { SiGithub } from '@icons-pack/svelte-simple-icons';
 	import SelectLoginProvider from './login/SelectLoginProvider.modal.svelte';
 	import { MoveUp } from '@lucide/svelte';
 	const { user }: { user: User | null } = $props();
@@ -17,6 +26,17 @@
 		>
 	</NavBrand>
 	<div class="flex md:order-2">
+		<A
+			href="https://github.com/austindelic/crib"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="View crib on GitHub"
+			class="mr-3 inline-flex items-center text-gray-700 transition-colors hover:text-black dark:text-gray-300 dark:hover:text-white"
+			role="link"
+		>
+			<SiGithub />
+		</A>
+
 		<DarkMode />
 		{#if user}
 			<Avatar {user} />
