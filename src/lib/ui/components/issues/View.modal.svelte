@@ -2,7 +2,7 @@
 	import { Modal } from 'flowbite-svelte';
 	import type { HouseIssue } from '$schema_types';
 
-	let { issue, is_open = $bindable() }: { issue: HouseIssue | null; is_open: boolean } = $props();
+	let { issue, is_open = $bindable() }: { issue: HouseIssue; is_open: boolean } = $props();
 </script>
 
 {#if issue}

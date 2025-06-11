@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
-import { superValidate } from 'sveltekit-superforms';
+import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { schema } from '$lib/form_schemas/join_code/join_code.schema';
 import { selectHouseFromJoinCode } from '$lib/server/db/queries/house_join_code';
@@ -18,6 +18,9 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	submit: async (event) => {
 		const form = await superValidate(event, zod(schema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 		if (!event.locals.user) {
 			throwError('USER_NOT_LOGGED_IN');
 		}

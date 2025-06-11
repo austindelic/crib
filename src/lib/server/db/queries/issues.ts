@@ -1,11 +1,15 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../index';
-import { houseIssueTable, houseTable } from '../schema';
+import { houseIssueTable } from '../schema';
 import type { HouseIssueDraft, HouseIssue } from '$schema_types';
 
 export async function getHouseIssueFromId(issue_id: string): Promise<HouseIssue | null> {
 	const [issue] = await db.select().from(houseIssueTable).where(eq(houseIssueTable.id, issue_id));
 	return issue ?? null;
+}
+
+export async function deleteHouseIssueFromId(issue_id: string) {
+	await db.delete(houseIssueTable).where(eq(houseIssueTable.id, issue_id));
 }
 
 export async function getHouseIssuesFromHouseId(house_id: string): Promise<HouseIssue[] | null> {

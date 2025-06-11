@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms';
+import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { schema } from '$lib/form_schemas/house/create_house.schema';
 import { createHouse } from '$lib/server/db/queries/house';
@@ -18,7 +18,9 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
 	create: async (event) => {
 		const form = await superValidate(event, zod(schema));
-
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 		const house_data = {
 			name: form.data.house_name,
 			user_id: event.locals.user.id

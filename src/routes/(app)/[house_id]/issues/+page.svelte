@@ -4,7 +4,7 @@
 
 	const { data }: PageProps = $props();
 
-	const { issues, create_form, edit_form } = $derived(data);
+	const { issues, create_form, edit_form, delete_form, user } = $derived(data);
 </script>
 
-<IssuesPage {issues} {create_form} {edit_form} />
+<IssuesPage {user} {issues} {create_form} {edit_form} {delete_form} />

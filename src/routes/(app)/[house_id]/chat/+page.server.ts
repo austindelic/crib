@@ -3,7 +3,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { createHouseChat, getHouseChatsFromHouseIdWithUserName } from '$server/db/queries/chat';
 import { mdToCleanHtml } from '$utils/markdown.utils';
 import { supabase } from '$server/db';
-import { superValidate } from 'sveltekit-superforms';
+import { fail, superValidate } from 'sveltekit-superforms';
 import { schema } from '$lib/form_schemas/chat/create_chat.schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { throwError } from '$utils/error.utils';
@@ -37,6 +37,9 @@ export const actions: Actions = {
 		const house_id = event.params.house_id;
 
 		const form = await superValidate(event, zod(schema));
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 		const chat = form.data.chat;
 		const house_chat_data = {
 			user_id: user.id,

@@ -1,79 +1,61 @@
 <script lang="ts">
-	import {
-		Table,
-		TableBody,
-		TableBodyCell,
-		TableBodyRow,
-		TableHead,
-		TableHeadCell,
-		Button
-	} from 'flowbite-svelte';
-	import ViewIssueModal from '$ui/components/issues/ViewIssue.modal.svelte';
-	import CreateIssueModal from '$ui/components/issues/CreateIssue.modal.svelte';
-	import EditIssueModal from '$ui/components/issues/EditIssue.modal.svelte';
-
-	import type { HouseIssue } from '$schema_types';
+	import { Button } from 'flowbite-svelte';
+	import ViewIssueModal from '$ui/components/issues/View.modal.svelte';
+	import CreateIssueModal from '$ui/components/issues/Create.modal.svelte';
+	import EditIssueModal from '$ui/components/issues/Edit.modal.svelte';
+	import TabledIssues from '$ui/components/issues/Table.svelte';
+	import SortButtons from '$ui/components/issues/SortButtons.svelte';
+	import DeleteIssueModal from '$ui/components/issues/Delete.modal.svelte';
+	import type { HouseIssue, User } from '$schema_types';
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
 	import { schema as CreateSchema } from '$lib/form_schemas/issue/create_issue.schema';
 	import { schema as EditSchema } from '$lib/form_schemas/issue/edit_issue.schema';
+	import { schema as DeleteSchema } from '$lib/form_schemas/issue/delete_issue.schema';
+	import { Plus, RefreshCcw } from '@lucide/svelte';
+	import { invalidateAll } from '$app/navigation';
 
-	const {
-		issues: issues_prop,
+	let {
+		user,
+		issues,
 		create_form,
-		edit_form
+		edit_form,
+		delete_form
 	}: {
-		issues: HouseIssue[] | null;
+		user: User;
+		issues: HouseIssue[];
 		create_form: SuperValidated<Infer<typeof CreateSchema>>;
 		edit_form: SuperValidated<Infer<typeof EditSchema>>;
+		delete_form: SuperValidated<Infer<typeof DeleteSchema>>;
 	} = $props();
 
-	const issues = $derived(issues_prop ?? []);
 	let selected_issue = $state({}) as HouseIssue;
 
 	let is_view_modal_open: boolean = $state(false);
 	let is_create_modal_open: boolean = $state(false);
 	let is_edit_modal_open: boolean = $state(false);
+	let is_delete_modal_open: boolean = $state(false);
 </script>
 
-<Button
-	onclick={() => {
-		is_create_modal_open = true;
-	}}>Create Issue</Button
->
-<Table>
-	<TableHead>
-		<TableHeadCell>Name</TableHeadCell>
-		<TableHeadCell>Description</TableHeadCell>
-		<TableHeadCell>Date Created</TableHeadCell>
-		<TableHeadCell>Priority</TableHeadCell>
-	</TableHead>
-	<TableBody>
-		{#each issues as issue (issue.id)}
-			<TableBodyRow
-				onclick={() => {
-					selected_issue = issues.find((i) => i.id === issue.id) as HouseIssue;
-					if (!is_edit_modal_open) {
-						is_view_modal_open = true;
-					}
-				}}
-			>
-				<TableBodyCell>{issue.name}</TableBodyCell>
-				<TableBodyCell>{issue.description}</TableBodyCell>
-				<TableBodyCell>{issue.created_at}</TableBodyCell>
-				<TableBodyCell>High Priority!</TableBodyCell>
-				<TableBodyCell>
-					<Button
-						onclick={() => {
-							selected_issue = issue;
-							is_edit_modal_open = true;
-						}}>Edit Issue</Button
-					>
-				</TableBodyCell>
-			</TableBodyRow>
-		{/each}
-	</TableBody>
-</Table>
+<div class="flex items-center space-x-2">
+	<Button onclick={() => (is_create_modal_open = true)}>
+		<Plus />
+	</Button>
+	<SortButtons bind:issues />
+	<Button onclick={() => invalidateAll()}>
+		<RefreshCcw />
+	</Button>
+</div>
 
-<ViewIssueModal issue={selected_issue} bind:is_open={is_view_modal_open} />
-<CreateIssueModal form={create_form} bind:is_open={is_create_modal_open} />
-<EditIssueModal form={edit_form} issue={selected_issue} bind:is_open={is_edit_modal_open} />
+<TabledIssues
+	bind:is_view_modal_open
+	bind:is_edit_modal_open
+	bind:is_delete_modal_open
+	bind:selected_issue
+	{issues}
+	{user}
+/>
+
+<DeleteIssueModal bind:is_open={is_delete_modal_open} issue={selected_issue} form={delete_form} />
+<ViewIssueModal bind:is_open={is_view_modal_open} issue={selected_issue} />
+<CreateIssueModal bind:is_open={is_create_modal_open} form={create_form} />
+<EditIssueModal bind:is_open={is_edit_modal_open} form={edit_form} issue={selected_issue} />
