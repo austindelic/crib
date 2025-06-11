@@ -2,7 +2,7 @@
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { Field, Control, Label, FieldErrors } from 'formsnap';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { schema } from '$lib/form_schemas/join_code/join_code.schema.js';
+	import { schema } from '$lib/form_schemas/house/join_house.schema.js';
 	import { enhance } from '$app/forms';
 	let {
 		form: form_prop,
@@ -21,7 +21,7 @@
 	});
 </script>
 
-<form use:enhance class="mx-auto flex max-w-md flex-col" method="POST" action="/?submit">
+<form use:enhance class="mx-auto flex max-w-md flex-col" method="POST" action="?/submit">
 	<Field {form} name="join_code">
 		<Control>
 			{#snippet children({ props })}

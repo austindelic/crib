@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	let text = $state('Select a House to get started.');
+	import OnboardingModal from '$ui/components/onboarding/Onboarding.modal.svelte';
+	import NewUser from '$ui/pages/NewUser.page.svelte';
 	const { data }: PageProps = $props();
-	const { user, houses } = data;
-	if (!houses) {
-		text = 'need to join/create house';
-	}
+	let { onboarding_needed, onboarding_form } = $derived(data);
+	let is_onboarding_modal_open = $state(false);
 </script>
 
-<p>Welcome {user.name}, {text}</p>
+<NewUser />
+
+<OnboardingModal form={onboarding_form} is_open={is_onboarding_modal_open} {onboarding_needed} />

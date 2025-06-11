@@ -4,13 +4,15 @@
 	import Avatar from './Avatar.svelte';
 
 	import SelectLoginProvider from './login/SelectLoginProvider.modal.svelte';
+	import { MoveUp } from '@lucide/svelte';
 	const { user }: { user: User | null } = $props();
 	let is_login_provider_modal_open = $state(false);
 </script>
 
 <Navbar>
 	<NavBrand href="/home">
-		<span class="font-rubikvinyl ml-2 self-center text-xl whitespace-nowrap dark:text-white"
+		<span
+			class="font-rubikvinyl text-primary-500 dark:text-primary-400 ml-2 self-center text-xl whitespace-nowrap"
 			>crib.</span
 		>
 	</NavBrand>
@@ -19,7 +21,28 @@
 		{#if user}
 			<Avatar {user} />
 		{:else}
-			<Button onclick={() => (is_login_provider_modal_open = true)} size="sm">Sign in</Button>
+			<div class="relative">
+				<Button onclick={() => (is_login_provider_modal_open = true)} size="sm">Sign in</Button>
+
+				<!-- Tooltip BELOW button, slightly left -->
+				<div
+					class="absolute top-full left-1/2 z-40 mt-3 -ml-3 flex -translate-x-[44%] flex-col items-center text-center select-none"
+				>
+					<!-- ↑ Arrow pointing up -->
+					<MoveUp
+						class="text-primary-600 dark:text-primary-400 mb-1 h-4 w-4"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						viewBox="0 0 24 24"
+					/>
+
+					<!-- Wider, shifted text -->
+					<div class="w-52 text-sm font-medium text-gray-700 dark:text-gray-300">
+						Get started — you got this 💪
+					</div>
+				</div>
+			</div>
 		{/if}
 
 		<NavHamburger />
