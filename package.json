@@ -1,7 +1,7 @@
 {
 	"name": "crib.",
 	"private": true,
-	"version": "0.5.0",
+	"version": "1.1.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -57,6 +57,7 @@
 	},
 	"dependencies": {
 		"@codemirror/lang-markdown": "^6.3.2",
+		"@icons-pack/svelte-simple-icons": "^5.0.0",
 		"@lucide/svelte": "^0.513.0",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",

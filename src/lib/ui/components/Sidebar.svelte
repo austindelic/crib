@@ -70,7 +70,10 @@
 			</SidebarItem>
 		</SidebarGroup>
 		<SidebarGroup border>
-			<SidebarItem label="Help">
+			<SidebarItem
+				label="Help"
+				href="https://github.com/austindelic/crib/blob/master/README.md#roadmap"
+			>
 				{#snippet icon()}
 					<CircleHelp />
 				{/snippet}

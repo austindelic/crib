@@ -1,19 +1,11 @@
 <script lang="ts">
-	import {
-		Navbar,
-		NavBrand,
-		NavLi,
-		NavUl,
-		NavHamburger,
-		DarkMode,
-		Button,
-		Modal
-	} from 'flowbite-svelte';
+	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, DarkMode, Button } from 'flowbite-svelte';
 	import type { User } from '$lib/schema_types';
 	import Avatar from './Avatar.svelte';
-	import { Plus } from '@lucide/svelte';
+
+	import SelectLoginProvider from './login/SelectLoginProvider.modal.svelte';
 	const { user }: { user: User | null } = $props();
-	let is_open = $state(false);
+	let is_login_provider_modal_open = $state(false);
 </script>
 
 <Navbar>
@@ -27,7 +19,7 @@
 		{#if user}
 			<Avatar {user} />
 		{:else}
-			<Button onclick={() => (is_open = true)} size="sm">Login</Button>
+			<Button onclick={() => (is_login_provider_modal_open = true)} size="sm">Sign in</Button>
 		{/if}
 
 		<NavHamburger />
@@ -43,17 +35,4 @@
 	</NavUl>
 </Navbar>
 
-<Modal title="Login" bind:open={is_open} autoclose>
-	<form>
-		<div class="mb-4 grid gap-4 sm:grid-cols-2">
-			<Button href="/api/login/google" class="w-52">
-				<Plus />
-				Login with Google
-			</Button>
-			<Button href="/api/login/github" class="w-52">
-				<Plus />
-				Login with Github
-			</Button>
-		</div>
-	</form>
-</Modal>
+<SelectLoginProvider bind:is_open={is_login_provider_modal_open} />
