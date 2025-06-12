@@ -5,65 +5,66 @@
 	import { enhance } from '$app/forms';
 	import type { PageProps } from './$types';
 	import MarkdownEditor from '$ui/components/MarkDownEditor.svelte';
+
 	const { form, data }: PageProps = $props();
 	const new_clean_html = $derived(form?.new_clean_html ?? null);
 	let code = $state(data.house.page_md);
 	let publish_model_is_open = $state(false);
 </script>
 
-<div class="flex h-screen flex-col">
-	<div class="mb-4 flex gap-4">
-		<form
-			method="POST"
-			use:enhance
-			class="flex w-full items-center justify-start border-b border-gray-300 p-4"
-			action="?/preview"
-		>
-			<Button type="submit" name="action" class="flex items-center gap-2">
+<div class="flex h-screen flex-col px-4 py-6">
+	<!-- Toolbar -->
+	<div class="mb-6 flex items-center gap-4">
+		<!-- Preview Button -->
+		<form method="POST" use:enhance class="flex items-center gap-2" action="?/preview">
+			<input type="hidden" name="code" bind:value={code} />
+			<Button type="submit" class="flex items-center gap-2">
 				<BookOpen />
 				<span>Preview</span>
 			</Button>
-			<input type="hidden" name="code" bind:value={code} />
 		</form>
-		<Button
-			type="submit"
-			class="flex items-center gap-2"
-			onclick={() => {
-				publish_model_is_open = true;
-			}}
-		>
+
+		<!-- Publish Button -->
+		<Button onclick={() => (publish_model_is_open = true)} class="flex items-center gap-2">
 			<SquarePen />
 			<span>Publish</span>
 		</Button>
 	</div>
 
-	<div class="flex flex-1 gap-4">
-		<div class="h-[800px] flex-1 overflow-y-auto p-4">
+	<!-- Editor & Preview Pane -->
+	<div class="flex flex-1 gap-6 overflow-hidden">
+		<div
+			class="flex-1 overflow-y-auto rounded-lg border border-gray-200 p-4 dark:border-neutral-700"
+		>
+			<h2 class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">Editor</h2>
 			<MarkdownEditor class="w-full" bind:value={code} />
 		</div>
-		<div class="h-[800px] flex-1 overflow-y-auto p-4">
-			{#if new_clean_html}
-				<MdRender clean_html={new_clean_html} />
-			{:else}
-				<MdRender clean_html={data.clean_html ?? null} />
-			{/if}
+		<div
+			class="flex-1 overflow-y-auto rounded-lg border border-gray-200 p-4 dark:border-neutral-700"
+		>
+			<h2 class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">Live Preview</h2>
+			<MdRender clean_html={new_clean_html ?? data.clean_html ?? null} />
 		</div>
 	</div>
 </div>
 
-<Modal title="Add Product" bind:open={publish_model_is_open} autoclose>
-	<form
-		method="POST"
-		use:enhance
-		class="flex w-full items-center justify-start border-b border-gray-300 p-4"
-		action="?/publish"
-	>
-		<div class="mb-4 grid gap-4 sm:grid-cols-2">
-			<Button type="submit" class="w-52">
+<!-- Publish Modal -->
+<Modal title="Publish Page" bind:open={publish_model_is_open} autoclose>
+	<form method="POST" use:enhance action="?/publish" class="space-y-4 p-6">
+		<p class="text-sm text-gray-700 dark:text-gray-300">
+			Are you sure you want to publish this page? This will update the shared house welcome page.
+		</p>
+
+		<input type="hidden" name="code" bind:value={code} />
+
+		<div class="flex justify-end gap-3">
+			<Button color="gray" onclick={() => (publish_model_is_open = false)} type="button">
+				Cancel
+			</Button>
+			<Button type="submit" class="flex items-center gap-2">
 				<Plus />
-				Are you sure you want to publish???
+				Publish
 			</Button>
 		</div>
-		<input type="hidden" name="code" bind:value={code} />
 	</form>
 </Modal>
