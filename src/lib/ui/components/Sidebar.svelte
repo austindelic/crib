@@ -59,7 +59,7 @@
 						<SidebarItem label="Chat" href="/{house.id}/chat" />
 						<SidebarItem label="Issues" href="/{house.id}/issues" />
 						<!-- <SidebarItem label="Chores/Bills" href="/{house.id}/chores" /> -->
-						<SidebarItem label="Share" href="/{house.id}/share" />
+						<SidebarItem label="Join Code" href="/{house.id}/share" />
 					</SidebarDropdownWrapper>
 				{/each}
 			{/if}
