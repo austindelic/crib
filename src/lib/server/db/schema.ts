@@ -70,7 +70,8 @@ export const houseIssueTable = pgTable('house_issues', {
 		.references(() => houseTable.id)
 		.notNull(),
 	name: text('name').notNull(),
-	description: text('description').notNull()
+	description: text('description').notNull(),
+	priority: text('priority').notNull() //currently just as string for MVP still figuring out functionallity.
 });
 
 export const houseChoreTable = pgTable('house_chores', {

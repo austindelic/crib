@@ -6,4 +6,12 @@
 	const { form, chats, user, house } = $derived(data);
 </script>
 
-<ChatPage {form} {chats} {user} {house} />
+{#await data}
+	Loading comments...
+{:then data}
+	<ChatPage {form} {chats} {user} {house} />
+{:catch error}
+	<p>error loading comments: {error.message}</p>
+{/await}
+
+<p>THis is a test</p>

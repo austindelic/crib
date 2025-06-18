@@ -11,7 +11,7 @@ import { updateUser } from '$server/db/queries/user';
 export const load: PageServerLoad = async ({ locals }) => {
 	const user: User = locals.user;
 	let onboarding_needed: boolean = false;
-	const onboarding_form: SuperValidated<Infer<typeof schema>> = await superValidate(zod(schema));
+	const onboarding_form: Promise<SuperValidated<Infer<typeof schema>>> = superValidate(zod(schema));
 	if (!user.dob) {
 		onboarding_needed = true;
 	}

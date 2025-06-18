@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Button } from 'flowbite-svelte';
 	import ViewIssueModal from '$ui/components/issues/View.modal.svelte';
-	import CreateIssueModal from '$ui/components/issues/Create.modal.svelte';
-	import EditIssueModal from '$ui/components/issues/Edit.modal.svelte';
+	import CreateIssueModal from '$ui/components/issues/CreateIssue.modal.svelte';
+	import EditIssueModal from '$ui/components/issues/EditIssue.modal.svelte';
 	import TabledIssues from '$ui/components/issues/Table.svelte';
 	import SortButtons from '$ui/components/issues/SortButtons.svelte';
-	import DeleteIssueModal from '$ui/components/issues/Delete.modal.svelte';
+	import DeleteIssueModal from '$ui/components/issues/DeleteIssue.modal.svelte';
 	import type { HouseIssue, User } from '$schema_types';
 	import type { Infer, SuperValidated } from 'sveltekit-superforms';
 	import { schema as CreateSchema } from '$lib/form_schemas/issue/create_issue.schema';
