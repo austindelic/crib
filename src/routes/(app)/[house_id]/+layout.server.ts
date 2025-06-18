@@ -6,7 +6,7 @@ import { getHouseFromId } from '$server/db/queries/house';
 import { isUserInHouse } from '$server/db/queries/house_users';
 import { throwError } from '$utils/error.utils';
 
-export const load = (async ({ params, locals, route }) => {
+export const load: LayoutServerLoad = async ({ params, locals, route }) => {
 	const { house_id } = params;
 	const user: User = locals.user;
 	const house: House | null = await getHouseFromId(house_id);
@@ -34,4 +34,4 @@ export const load = (async ({ params, locals, route }) => {
 		user,
 		house
 	};
-}) satisfies LayoutServerLoad;
+};
