@@ -10,13 +10,11 @@
 
 <Sidebar {user} {houses}>
 	<div class="relative h-full w-full">
-		<!-- Loader with fade animation -->
 		<div
 			class="pointer-events-none absolute inset-0 z-50 flex items-center justify-center transition-opacity duration-300"
 			class:opacity-100={navigating.complete}
 			class:opacity-0={!navigating.complete}
 		>
-			<!-- Gradient blurred spinner -->
 			<div class="relative aspect-square w-12 animate-spin rounded-full">
 				<div
 					class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-400 via-purple-500 to-pink-500"
